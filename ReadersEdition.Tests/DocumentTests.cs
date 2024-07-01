@@ -1,6 +1,6 @@
 namespace ReadersEdition.Tests;
 
-public class Tests
+public class DocumentTests
 {
     [SetUp]
     public void Setup()
