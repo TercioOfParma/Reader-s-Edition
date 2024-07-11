@@ -23,6 +23,22 @@ public class HomeController : Controller
         return View();
     }
 
+    [HttpGet]
+    public IActionResult GlossText()
+    {
+        return View();
+    }
+    [HttpPost]
+    public async Task<IActionResult> GlossText(GlossTextDto glossText)
+    {
+        var resultStream = glossText.ContentFile.OpenReadStream();
+        resultStream.Position = 0;
+        var streamToReadFrom = new StreamReader(resultStream);
+        var fileContents = await streamToReadFrom.ReadToEndAsync();
+        Console.WriteLine(fileContents);
+        return RedirectToAction("Index");
+    }
+
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
     {

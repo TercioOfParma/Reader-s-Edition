@@ -1,0 +1,22 @@
+@model GlossTextDto
+@{
+    ViewBag.PageTitle="Gloss Text";
+}
+
+
+<form asp-controller="Home" asp-action="GlossText" enctype="multipart/form-data" method="post">
+<div>
+    <label asp-for="ContentFile"></label>
+    <input asp-for="ContentFile" />
+</div>
+<div>
+    <label asp-for="GlossedAsComprehensibleInput"></label>
+    <input type="checkbox" asp-for="GlossedAsComprehensibleInput" />
+</div>
+<div>
+    <label asp-for="Threshold"></label>
+    <input asp-for="Threshold"> 
+</div>
+<button type="submit">Submit File</button>
+
+</form>
