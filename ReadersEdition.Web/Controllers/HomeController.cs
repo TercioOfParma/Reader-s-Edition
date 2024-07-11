@@ -26,7 +26,7 @@ public class HomeController : Controller
     [HttpGet]
     public IActionResult GlossText()
     {
-        return View();
+        return View(new GlossTextDto());
     }
     [HttpPost]
     public async Task<IActionResult> GlossText(GlossTextDto glossText)

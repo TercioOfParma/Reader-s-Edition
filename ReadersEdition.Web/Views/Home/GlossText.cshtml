@@ -3,20 +3,22 @@
     ViewBag.PageTitle="Gloss Text";
 }
 
+<div class="row">
+    <form asp-controller="Home" asp-action="GlossText" enctype="multipart/form-data" method="post">
+        <div class="col">
+            <label asp-for="ContentFile">File to Gloss</label>
+            <input class="form-control form-control-file" asp-for="ContentFile" />
+        </div>
+        <div class="col">
+            <label asp-for="GlossedAsComprehensibleInput"></label>
+            <input type="checkbox" asp-for="GlossedAsComprehensibleInput" />
+        </div>
+        <div class="col">
+            <label asp-for="Threshold"></label>
+            <select asp-for="Threshold" asp-items="Html.GetEnumSelectList<DifficultyLevels>()"> </select>
+        </div>
+        <!--If Statements don't work without reloading the page, I need to use JQuery-->
+        <button type="submit">Submit File</button>
 
-<form asp-controller="Home" asp-action="GlossText" enctype="multipart/form-data" method="post">
-<div>
-    <label asp-for="ContentFile"></label>
-    <input asp-for="ContentFile" />
+    </form>
 </div>
-<div>
-    <label asp-for="GlossedAsComprehensibleInput"></label>
-    <input type="checkbox" asp-for="GlossedAsComprehensibleInput" />
-</div>
-<div>
-    <label asp-for="Threshold"></label>
-    <input asp-for="Threshold"> 
-</div>
-<button type="submit">Submit File</button>
-
-</form>
