@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using ReadersEdition.Web.Models;
 
@@ -7,10 +8,12 @@ namespace ReadersEdition.Web.Controllers;
 public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
+    private IMediator _mediator {get; set;}
 
-    public HomeController(ILogger<HomeController> logger)
+    public HomeController(ILogger<HomeController> logger, IMediator mediator)
     {
         _logger = logger;
+        _mediator = mediator;
     }
 
     public IActionResult Index()
@@ -35,6 +38,7 @@ public class HomeController : Controller
         resultStream.Position = 0;
         var streamToReadFrom = new StreamReader(resultStream);
         var fileContents = await streamToReadFrom.ReadToEndAsync();
+        var result = await _mediator.Send(new LoadDefinitionsQuery { Text = fileContents, GlossLanguage = glossText.GlossLanguage, TextLanguage = glossText.DefinitionLanguage } );
         Console.WriteLine(fileContents);
         return RedirectToAction("Index");
     }

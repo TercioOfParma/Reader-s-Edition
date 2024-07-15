@@ -27,7 +27,7 @@ public class Document
         <param name="comprehensibleInput"> Whether or not it is glossed according to Comprehensible Input Rules </param>
         <param name="threshold"> The threshold for glossing </param>
     **/
-    public Document(string fileContents, bool comprehensibleInput, int threshold)
+    public Document(string fileContents, bool comprehensibleInput)
     {
         GlossedAsComprehensibleInput = comprehensibleInput;
         DocumentContents = fileContents;
@@ -80,13 +80,16 @@ public class Document
     /// Returns the Proper Gloss Dictionary For Getting Loading In Definitions
     /// </summary>
     /// <returns>A Dictionary with the Proper Words for Glossing</returns>
-    public Dictionary<string, string> GetRelevantGlosses()
+    public async Dictionary<string, string> GetRelevantGlosses(IDictionaryRetriever retriever, IUnitOfWork _db)
     {
+        await Task.CompletedTask;
         var relevantGlosses = new Dictionary<string, string>();
         foreach(var pair in FrequencyInDocument)
         {
             if((GlossedAsBible && pair.Value <= Threshold) || (GlossedAsComprehensibleInput && pair.Value >= Threshold))
-                relevantGlosses[pair.Key] = "";               
+            {
+                relevantGlosses[pair.Key] = "";    
+            }           
         }
 
         return relevantGlosses;

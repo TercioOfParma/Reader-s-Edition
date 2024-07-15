@@ -1,6 +1,6 @@
-using System.Reflection.Metadata;
 using Microsoft.EntityFrameworkCore;
 using ReadersEdition.Domain.DictionaryModels;
+using ReadersEdition.Domain;
 
 
 public class ApplicationDbContext : DbContext, IUnitOfWork
@@ -12,9 +12,12 @@ public class ApplicationDbContext : DbContext, IUnitOfWork
         throw new NotImplementedException();
     }
 
-    public Task<IEnumerable<Definition>> GetDefinitions(Document document, Language documentLanguage, Language glossLanguage)
+    public async Task<IDictionary<string,Definition>> GetDefinitions(Document document, Language documentLanguage, Language glossLanguage)
     {
-        throw new NotImplementedException();
+        var result = await Definitions.Where(x => document.Glosses.Any(y => y.Key == x.Word)).ToDictionaryAsync(x => x.Word, x => x);
+        if(result == null)
+            return new Dictionary<string,Definition>();
+        return result;
     }
 
     public Task<IEnumerable<Language>> GetLanguages()
