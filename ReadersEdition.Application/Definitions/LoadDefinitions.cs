@@ -13,7 +13,7 @@ public class LoadDefinitionsQuery : IRequest<LoadDefinitionsResult>
 
 public class LoadDefinitionsResult 
 {
-
+    public IDictionary<string, Definition> Definitions {get; set;}
 }
 
 public class LoadDefinitionsHandler : IRequestHandler<LoadDefinitionsQuery, LoadDefinitionsResult>
@@ -30,8 +30,10 @@ public class LoadDefinitionsHandler : IRequestHandler<LoadDefinitionsQuery, Load
         var document = new Document(request.Text, request.ComprehensibleInput);
         var dbDefinitions = await _db.GetDefinitions(document, request.TextLanguage, request.GlossLanguage);
         var missingDefinitions = document.Glosses.Keys.Where(x => dbDefinitions.Keys.Any(y => y == x)).ToList();
-
-
-        return new LoadDefinitionsResult();
+        var wiktionaryDefinitions = await _retriever.GetDefinitions(missingDefinitions, request.TextLanguage, request.GlossLanguage);
+        await _db.AddDefinitions(wiktionaryDefinitions.Values, request.TextLanguage, request.GlossLanguage);
+        foreach(var pair in wiktionaryDefinitions)
+            dbDefinitions.Add(pair);
+        return new LoadDefinitionsResult{ Definitions = dbDefinitions};
     }
 }
