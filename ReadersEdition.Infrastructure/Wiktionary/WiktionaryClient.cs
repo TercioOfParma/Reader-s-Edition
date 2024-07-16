@@ -22,7 +22,7 @@ public class WiktionaryClient : HttpClient, IDictionaryRetriever
     {
         var definitions = new List<Definition>();
         //form-of-definition-link is very important, as this indicates where re-searching should occur
-        var textInfo = await GetAsync(_baseAddress + $"/rest_v1/page/definition/{word}");
+        var textInfo = await GetAsync(_baseAddress + word);
         var message = await textInfo.Content.ReadAsStringAsync();
         var json = JObject.Parse(message);
         var currentLanguage = json[glossLanguage.LanguageCode].ToString();
@@ -109,5 +109,10 @@ public class WiktionaryClient : HttpClient, IDictionaryRetriever
     public Task<Definition> GetDefinition(string word, Language wordLanguage, Language glossLanguage)
     {
         throw new NotImplementedException();
+    }
+
+    public void ChangeLanguage(Language glossLanguage)
+    {
+        _baseAddress = $"https://{glossLanguage.LanguageCode}.wiktionary.org/api/rest_v1/page/definition/";
     }
 }

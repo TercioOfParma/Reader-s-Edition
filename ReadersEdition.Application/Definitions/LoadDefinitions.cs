@@ -27,6 +27,7 @@ public class LoadDefinitionsHandler : IRequestHandler<LoadDefinitionsQuery, Load
     }
     public async Task<LoadDefinitionsResult> Handle(LoadDefinitionsQuery request, CancellationToken cancellationToken)
     {
+        _retriever.ChangeLanguage(request.GlossLanguage);
         var document = new Document(request.Text, request.ComprehensibleInput);
         var dbDefinitions = await _db.GetDefinitions(document, request.TextLanguage, request.GlossLanguage);
         var missingDefinitions = document.Glosses.Keys.Where(x => dbDefinitions.Keys.Any(y => y == x)).ToList();
