@@ -7,6 +7,8 @@ public class ApplicationDbContext : DbContext, IUnitOfWork
 {
     private DbSet<Definition> Definitions {get; set;}
     private DbSet<Language> Languages {get; set;}
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+            => optionsBuilder.UseNpgsql("Host=localhost;Database=my_db;Username=my_user;Password=my_pw");
     public Task<Result> AddDefinitions(IEnumerable<Definition> Words, Language wordLanguage, Language glossLanguage)
     {
         throw new NotImplementedException();
