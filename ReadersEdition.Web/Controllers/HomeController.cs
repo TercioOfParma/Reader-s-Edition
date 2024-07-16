@@ -27,8 +27,10 @@ public class HomeController : Controller
     }
 
     [HttpGet]
-    public IActionResult GlossText()
+    public async IActionResult GlossText()
     {
+        var gloss = new GlossTextDto();
+        gloss.Languages = (await _mediator.Send(new GetLanguagesQuery())).Languages;
         return View(new GlossTextDto());
     }
     [HttpPost]

@@ -9,4 +9,5 @@ public class GlossTextDto
     public DifficultyLevels Threshold {get; set;}
     public Language GlossLanguage {get; set;}
     public Language DefinitionLanguage {get; set;}
+    public IEnumerable<Language> Languages {get; set;}
 }

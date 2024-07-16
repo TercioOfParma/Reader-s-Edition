@@ -23,8 +23,8 @@ public class ApplicationDbContext : DbContext, IUnitOfWork
         return result;
     }
 
-    public Task<IEnumerable<Language>> GetLanguages()
+    public async Task<IEnumerable<Language>> GetLanguages()
     {
-        throw new NotImplementedException();
+        return await Languages.ToListAsync();
     }
 }
