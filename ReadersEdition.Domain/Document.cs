@@ -80,9 +80,8 @@ public class Document
     /// Returns the Proper Gloss Dictionary For Getting Loading In Definitions
     /// </summary>
     /// <returns>A Dictionary with the Proper Words for Glossing</returns>
-    public async Dictionary<string, string> GetRelevantGlosses(IDictionaryRetriever retriever, IUnitOfWork _db)
+    public Dictionary<string, string> GetRelevantGlosses(IDictionaryRetriever retriever, IUnitOfWork _db)
     {
-        await Task.CompletedTask;
         var relevantGlosses = new Dictionary<string, string>();
         foreach(var pair in FrequencyInDocument)
         {

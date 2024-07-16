@@ -19,11 +19,11 @@
         </div>
         <div class="col">
             <label asp-for="GlossLanguage">Gloss Language</label>
-            <select asp-for="GlossLanguage" asp-items="model.Languages"></select>
+            <select asp-for="GlossLanguage" asp-items="Model.Languages"></select>
         </div>
               <div class="col">
             <label asp-for="TextLanguage">Text Language</label>
-            <select asp-for="TextLanguage" asp-items="model.Languages"></select>
+            <select asp-for="TextLanguage" asp-items="Model.Languages"></select>
         </div>
         <!--If Statements don't work without reloading the page, I need to use JQuery-->
         <button type="submit">Submit File</button>

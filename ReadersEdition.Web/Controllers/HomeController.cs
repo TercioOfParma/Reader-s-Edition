@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using ReadersEdition.Web.Models;
 
 namespace ReadersEdition.Web.Controllers;
@@ -27,10 +28,11 @@ public class HomeController : Controller
     }
 
     [HttpGet]
-    public async IActionResult GlossText()
+    public async Task<IActionResult> GlossText()
     {
         var gloss = new GlossTextDto();
-        gloss.Languages = (await _mediator.Send(new GetLanguagesQuery())).Languages;
+        var languages = (await _mediator.Send(new GetLanguagesQuery())).Languages;
+        gloss.Languages = languages.ToList().ConvertAll(x => new SelectListItem(x.LanguageName, x.LanguageId.ToString()));
         return View(new GlossTextDto());
     }
     [HttpPost]
@@ -40,7 +42,7 @@ public class HomeController : Controller
         resultStream.Position = 0;
         var streamToReadFrom = new StreamReader(resultStream);
         var fileContents = await streamToReadFrom.ReadToEndAsync();
-        var result = await _mediator.Send(new LoadDefinitionsQuery { Text = fileContents, GlossLanguage = glossText.GlossLanguage, TextLanguage = glossText.DefinitionLanguage } );
+        var result = await _mediator.Send(new LoadDefinitionsQuery { Text = fileContents, GlossLanguage = glossText.GlossLanguage, TextLanguage = glossText.TextLanguage } );
         Console.WriteLine(fileContents);
         return RedirectToAction("Index");
     }
