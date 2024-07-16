@@ -9,9 +9,10 @@ public class ApplicationDbContext : DbContext, IUnitOfWork
     private DbSet<Language> Languages {get; set;}
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
             => optionsBuilder.UseNpgsql("Host=localhost;Database=my_db;Username=my_user;Password=my_pw");
-    public Task<Result> AddDefinitions(IEnumerable<Definition> Words, Language wordLanguage, Language glossLanguage)
+    public async Task<Result> AddDefinitions(IEnumerable<Definition> Words, Language wordLanguage, Language glossLanguage)
     {
-        throw new NotImplementedException();
+        await Definitions.AddRangeAsync(Words);
+        return Result.Success();
     }
 
     public async Task<IDictionary<string,Definition>> GetDefinitions(Document document, Language documentLanguage, Language glossLanguage)

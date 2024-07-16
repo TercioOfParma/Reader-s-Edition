@@ -11,6 +11,13 @@ public class WiktionaryClient : HttpClient, IDictionaryRetriever
     {
         _baseAddress = baseAddress;
     }
+    /// <summary>
+    /// Loads in the Definitions directly prior to preprocessing
+    /// </summary>
+    /// <param name="word">The word to load</param>
+    /// <param name="wordLanguage">The language of the Word</param>
+    /// <param name="glossLanguage">The language of the Gloss</param>
+    /// <returns></returns>
     public async Task<IEnumerable<Definition>> LoadWiktionaryDefinitions(string word, Language wordLanguage, Language glossLanguage)
     {
         var definitions = new List<Definition>();
@@ -29,12 +36,20 @@ public class WiktionaryClient : HttpClient, IDictionaryRetriever
                 newDefinition.DefinitionId = Guid.NewGuid();
                 newDefinition.Word = word;
                 newDefinition.Gloss = definition.Definition;
+                newDefinition.GlossLanguageId = glossLanguage.LanguageId;
+                newDefinition.WordLanguageId = wordLanguage.LanguageId;
                 definitions.Add(newDefinition);
             }
         }
         return definitions;
     }
-
+    /// <summary>
+    /// Loads up all necessary definitions from the Wiktionary API
+    /// </summary>
+    /// <param name="words">List of Words Needed</param>
+    /// <param name="wordLanguage">The Language of the Word</param>
+    /// <param name="glossLanguage">The Language of the Gloss</param>
+    /// <returns></returns>
     public async Task<IDictionary<string, Definition>> GetDefinitions(IEnumerable<string> words, Language wordLanguage, Language glossLanguage)
     {
         var dict = new Dictionary<string, Definition>();
@@ -45,10 +60,11 @@ public class WiktionaryClient : HttpClient, IDictionaryRetriever
             definitions.ToList().RemoveAll(x => inflections.Any(y => y.Gloss == x.Gloss));
             if(inflections.Count() != 0)
             {
-                var rawInflections = await StripHTMLFromDefinitions(inflections);
+                var rawInflections = await StripHTMLFromInflections(inflections);
                 var defined = await GetDefinitions(rawInflections, wordLanguage, glossLanguage);
                 defined.ToList().ForEach(x => dict.Add(x.Key, x.Value));
             }
+            StripHTMLFromDefinitions(definitions);
             foreach(var definition in definitions)
             {
                 Console.WriteLine($"{definition.Word}");
@@ -58,7 +74,22 @@ public class WiktionaryClient : HttpClient, IDictionaryRetriever
 
         return dict;
     }
-    private async Task<IEnumerable<string>> StripHTMLFromDefinitions(IEnumerable<Definition> definitions)
+    private void StripHTMLFromDefinitions(IEnumerable<Definition> definitions)
+    {
+        var doc = new HtmlDocument();
+        foreach(var def in definitions)
+        {
+            doc.LoadHtml(def.Gloss);
+            var docContents = doc.DocumentNode.SelectSingleNode("//span");
+            var words = docContents.Descendants("span").Where(span => span.GetAttributeValue("class","") == "form-of-definition-link");
+            def.Gloss = "";
+            foreach(var word in words)
+            {
+                def.Gloss += word;
+            }
+        }
+    }
+    private async Task<IEnumerable<string>> StripHTMLFromInflections(IEnumerable<Definition> definitions)
     {
         var strippedStrings = new List<string>();
         var doc = new HtmlDocument();
