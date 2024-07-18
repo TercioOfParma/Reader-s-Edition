@@ -1,0 +1,14 @@
+@model NewLanguageDto
+
+
+<form asp-controller="CrudController" asp-action="CreateLanguage" method="post">
+<div>
+    <label asp-for="LanguageName"></label>
+    <input asp-for="LanguageName" />
+</div>
+<div>
+    <label asp-for="LanguageCode">Language Code</label>
+    <input asp-for="LanguageCode">
+</div>
+<button type="submit">Submit New Language</button>
+</form>

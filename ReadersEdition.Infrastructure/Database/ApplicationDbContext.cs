@@ -27,4 +27,13 @@ public class ApplicationDbContext : DbContext, IUnitOfWork
     {
         return await Languages.ToListAsync();
     }
+
+    public async Task<Result> AddLanguage(Language lang)
+    {
+        await Languages.AddAsync(lang);
+
+        await SaveChangesAsync();
+
+        return Result.Success();
+    }
 }
