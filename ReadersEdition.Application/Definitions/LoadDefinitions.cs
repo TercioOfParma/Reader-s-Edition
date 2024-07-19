@@ -30,11 +30,19 @@ public class LoadDefinitionsHandler : IRequestHandler<LoadDefinitionsQuery, Load
         _retriever.ChangeLanguage(request.GlossLanguage);
         var document = new Document(request.Text, request.ComprehensibleInput);
         var dbDefinitions = await _db.GetDefinitions(document, request.TextLanguage, request.GlossLanguage);
-        var missingDefinitions = document.Glosses.Keys.Where(x => dbDefinitions.Keys.Any(y => y == x)).ToList();
+        var missingDefinitions = document.Glosses.Keys.Where(x => !dbDefinitions.Keys.Any(y => y == x)).ToList();
+        foreach(var def in missingDefinitions)
+            Console.WriteLine(def);
+        
         var wiktionaryDefinitions = await _retriever.GetDefinitions(missingDefinitions, request.TextLanguage, request.GlossLanguage);
-        await _db.AddDefinitions(wiktionaryDefinitions.Values, request.TextLanguage, request.GlossLanguage);
-        foreach(var pair in wiktionaryDefinitions)
-            dbDefinitions.Add(pair);
+        var toSave = new List<Definition>();
+        foreach(var word in wiktionaryDefinitions)
+            toSave.AddRange(word.Value);
+        
+        
+        await _db.AddDefinitions(toSave,request.TextLanguage, request.GlossLanguage);
+        foreach(var def in toSave)
+            dbDefinitions[def.Word] = def;
         return new LoadDefinitionsResult{ Definitions = dbDefinitions};
     }
 }

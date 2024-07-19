@@ -25,21 +25,29 @@ public class WiktionaryClient : HttpClient, IDictionaryRetriever
         var textInfo = await GetAsync(_baseAddress + word);
         var message = await textInfo.Content.ReadAsStringAsync();
         var json = JObject.Parse(message);
-        var currentLanguage = json[glossLanguage.LanguageCode].ToString();
-        
-        var fullResponse = JsonConvert.DeserializeObject<IEnumerable<WiktionaryLanguageResponse>>(currentLanguage);
-        foreach(var response in fullResponse)
+        if(json[glossLanguage.LanguageCode] != null)
         {
-            foreach(var definition in response.Definitions)
+            var currentLanguage = json[glossLanguage.LanguageCode].ToString();
+            
+            var fullResponse = JsonConvert.DeserializeObject<IEnumerable<WiktionaryLanguageResponse>>(currentLanguage);
+            foreach(var response in fullResponse)
             {
-                var newDefinition = new Definition();
-                newDefinition.DefinitionId = Guid.NewGuid();
-                newDefinition.Word = word;
-                newDefinition.Gloss = definition.Definition;
-                newDefinition.GlossLanguageId = glossLanguage.LanguageId;
-                newDefinition.WordLanguageId = wordLanguage.LanguageId;
-                definitions.Add(newDefinition);
+                foreach(var definition in response.Definitions)
+                {
+                    var newDefinition = new Definition();
+                    newDefinition.DefinitionId = Guid.NewGuid();
+                    newDefinition.Word = word;
+                    newDefinition.Gloss = definition.Definition;
+                    newDefinition.GlossLanguageId = glossLanguage.LanguageId;
+                    newDefinition.WordLanguageId = wordLanguage.LanguageId;
+                    definitions.Add(newDefinition);
+                }
             }
+        }
+        if(word.ToLower() != word)
+        {
+            var result = await LoadWiktionaryDefinitions(word.ToLower(), wordLanguage, glossLanguage);
+            definitions.AddRange(result);
         }
         return definitions;
     }
@@ -50,9 +58,9 @@ public class WiktionaryClient : HttpClient, IDictionaryRetriever
     /// <param name="wordLanguage">The Language of the Word</param>
     /// <param name="glossLanguage">The Language of the Gloss</param>
     /// <returns></returns>
-    public async Task<IDictionary<string, Definition>> GetDefinitions(IEnumerable<string> words, Language wordLanguage, Language glossLanguage)
+    public async Task<IDictionary<string, List<Definition>>> GetDefinitions(IEnumerable<string> words, Language wordLanguage, Language glossLanguage)
     {
-        var dict = new Dictionary<string, Definition>();
+        var dict = new Dictionary<string, List<Definition>>();
         foreach(var word in words)
         {
             var definitions = await LoadWiktionaryDefinitions(word, wordLanguage, glossLanguage);
@@ -60,16 +68,20 @@ public class WiktionaryClient : HttpClient, IDictionaryRetriever
             definitions.ToList().RemoveAll(x => inflections.Any(y => y.Gloss == x.Gloss));
             if(inflections.Count() != 0)
             {
+                Console.WriteLine("In Inflections");
                 var rawInflections = await StripHTMLFromInflections(inflections);
-                var defined = await GetDefinitions(rawInflections, wordLanguage, glossLanguage);
-                defined.ToList().ForEach(x => dict.Add(x.Key, x.Value));
+                var defined = await GetDefinitions(rawInflections.Keys, wordLanguage, glossLanguage);
+                foreach(var list in defined.Values)
+                    dict[word].AddRange(list.ToList());
             }
             StripHTMLFromDefinitions(definitions);
-            foreach(var definition in definitions)
-            {
-                Console.WriteLine($"{definition.Word}");
-                dict.Add(definition.Word, definition);
-            }
+            Console.WriteLine(dict.Count());
+            if(inflections.Any())
+                dict[word].AddRange(definitions);
+            else
+                dict[word] = definitions.ToList();
+                
+            
         }
 
         return dict;
@@ -80,18 +92,14 @@ public class WiktionaryClient : HttpClient, IDictionaryRetriever
         foreach(var def in definitions)
         {
             doc.LoadHtml(def.Gloss);
-            var docContents = doc.DocumentNode.SelectSingleNode("//span");
-            var words = docContents.Descendants("span").Where(span => span.GetAttributeValue("class","") == "form-of-definition-link");
-            def.Gloss = "";
-            foreach(var word in words)
-            {
-                def.Gloss += word;
-            }
+            var docContents = doc.DocumentNode;
+            def.Gloss = docContents.InnerText;
+           
         }
     }
-    private async Task<IEnumerable<string>> StripHTMLFromInflections(IEnumerable<Definition> definitions)
+    private async Task<IDictionary<string,string>> StripHTMLFromInflections(IEnumerable<Definition> definitions)
     {
-        var strippedStrings = new List<string>();
+        var strippedStrings = new Dictionary<string,string>();
         var doc = new HtmlDocument();
         foreach(var inflection in definitions)
         {
@@ -100,7 +108,7 @@ public class WiktionaryClient : HttpClient, IDictionaryRetriever
             var words = docContents.Descendants("span").Where(span => span.GetAttributeValue("class","") == "form-of-definition-link");
             foreach(var word in words)
             {
-                strippedStrings.Add(word.InnerText);
+                strippedStrings[word.InnerText] = inflection.Word;
             }
         }
         return strippedStrings;

@@ -38,10 +38,15 @@ public class HomeController : Controller
     [HttpPost]
     public async Task<IActionResult> GlossText(GlossTextDto glossText)
     {
+        var languages = await _mediator.Send(new GetLanguagesQuery());
         var resultStream = glossText.ContentFile.OpenReadStream();
         resultStream.Position = 0;
         var streamToReadFrom = new StreamReader(resultStream);
         var fileContents = await streamToReadFrom.ReadToEndAsync();
+        if(glossText.TextLanguage == null)
+            glossText.TextLanguage = languages.Languages.FirstOrDefault();
+        if(glossText.GlossLanguage == null)
+            glossText.GlossLanguage = languages.Languages.FirstOrDefault();
         var result = await _mediator.Send(new LoadDefinitionsQuery { Text = fileContents, GlossLanguage = glossText.GlossLanguage, TextLanguage = glossText.TextLanguage } );
         Console.WriteLine(fileContents);
         return RedirectToAction("Index");

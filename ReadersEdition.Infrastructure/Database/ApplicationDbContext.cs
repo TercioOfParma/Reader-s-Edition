@@ -12,14 +12,20 @@ public class ApplicationDbContext : DbContext, IUnitOfWork
     public async Task<Result> AddDefinitions(IEnumerable<Definition> Words, Language wordLanguage, Language glossLanguage)
     {
         await Definitions.AddRangeAsync(Words);
+        await SaveChangesAsync();
         return Result.Success();
     }
 
     public async Task<IDictionary<string,Definition>> GetDefinitions(Document document, Language documentLanguage, Language glossLanguage)
     {
-        var result = await Definitions.Where(x => document.Glosses.Any(y => y.Key == x.Word)).ToDictionaryAsync(x => x.Word, x => x);
+        var result = await Definitions.Where(x => document.Glosses.Keys.Any(y => y == x.Word && 
+        x.GlossLanguageId == glossLanguage.LanguageId &&
+        x.WordLanguageId == documentLanguage.LanguageId)).ToDictionaryAsync(x => x.Word, x => x);
         if(result == null)
             return new Dictionary<string,Definition>();
+        foreach(var def in Definitions)
+            Console.WriteLine(def.Word);
+        
         return result;
     }
 
