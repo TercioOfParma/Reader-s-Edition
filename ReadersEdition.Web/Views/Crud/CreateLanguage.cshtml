@@ -1,9 +1,9 @@
 @model NewLanguageDto
 
 
-<form asp-controller="CrudController" asp-action="CreateLanguage" method="post">
+<form asp-controller="Crud" asp-action="CreateLanguage" method="post" enctype="multipart/form-data" >
 <div>
-    <label asp-for="LanguageName"></label>
+    <label asp-for="LanguageName">Language Name</label>
     <input asp-for="LanguageName" />
 </div>
 <div>

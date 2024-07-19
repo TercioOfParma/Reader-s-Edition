@@ -24,6 +24,7 @@ public class CrudController : Controller
     public async Task<IActionResult> CreateLanguage(NewLanguageDto model)
     {
         var language = new Language { LanguageCode = model.LanguageCode, LanguageName = model.LanguageName};
-        return RedirectToAction("Home", "Index");
+        await _mediator.Send(new AddLanguageCommand{ Lang = language });
+        return RedirectToAction("Index", "Home");
     }
 }

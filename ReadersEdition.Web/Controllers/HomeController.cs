@@ -33,7 +33,7 @@ public class HomeController : Controller
         var gloss = new GlossTextDto();
         var languages = (await _mediator.Send(new GetLanguagesQuery())).Languages;
         gloss.Languages = languages.ToList().ConvertAll(x => new SelectListItem(x.LanguageName, x.LanguageId.ToString()));
-        return View(new GlossTextDto());
+        return View(gloss);
     }
     [HttpPost]
     public async Task<IActionResult> GlossText(GlossTextDto glossText)
