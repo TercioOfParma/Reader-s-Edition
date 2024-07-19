@@ -3,7 +3,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddHttpClient<IDictionaryRetriever, WiktionaryClient>();
+builder.Services.AddScoped<IDictionaryRetriever>(x => new WiktionaryClient(builder.Configuration.GetValue<string>("Wiktionary:BaseURL") ?? ""));
 builder.Services.AddApplicationServices();
 builder.Services.AddInfrastructureServices();
 
