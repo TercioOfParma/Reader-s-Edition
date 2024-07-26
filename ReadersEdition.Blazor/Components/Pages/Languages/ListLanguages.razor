@@ -1,0 +1,24 @@
+@page "/admin/languages"
+
+
+@if(Languages != null)
+{
+    <RadzenDataGrid Data="Languages">
+        <Columns>
+            <RadzenDataColumn Property="LanguageCode"></RadzenDataColumn>
+            <RadzenDataColumn Property="LanguageName"></RadzenDataColumn>
+        </Columns>
+    </RadzenDataGrid>
+}
+
+@code 
+{
+    [Inject]
+    public IMediator Mediator {get; set;}
+    public List<Language> Languages {get; set;} 
+    protected override async Task OnInitializedAsync()
+    {
+        var result = await Mediator.Send(new GetLanguagesQuery());
+        Languages = result.Languages.ToList();
+    }
+}

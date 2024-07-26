@@ -17,6 +17,11 @@ public class AddLanguageHandler : IRequestHandler<AddLanguageCommand, Result>
     }
     public async Task<Result> Handle(AddLanguageCommand request, CancellationToken cancellationToken)
     {
+        var languages = await _db.GetLanguages();
+
+        if(languages.Any(x => x.LanguageCode == request.Lang.LanguageCode || 
+        x.LanguageName == request.Lang.LanguageName))
+            return Result.Error("Language Already Exists!");
         await _db.AddLanguage(request.Lang);
         return Result.Success();
     }

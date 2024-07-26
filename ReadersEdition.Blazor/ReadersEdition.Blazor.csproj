@@ -2,6 +2,7 @@
   <ItemGroup>
     <ProjectReference Include="..\ReadersEdition.Application\ReadersEdition.Application.csproj" />
     <ProjectReference Include="..\ReadersEdition.Domain\ReadersEdition.Domain.csproj" />
+    <ProjectReference Include="..\ReadersEdition.Infrastructure\ReadersEdition.Infrastructure.csproj" />
   </ItemGroup>
 
 
@@ -17,5 +18,6 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
+    <PackageReference Include="Radzen.Blazor" Version="5.0.3" />
   </ItemGroup>
 </Project>

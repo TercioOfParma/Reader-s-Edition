@@ -11,6 +11,7 @@ builder.Services.AddRazorComponents()
 builder.Services.AddScoped<IDictionaryRetriever>(x => new WiktionaryClient(builder.Configuration.GetValue<string>("Wiktionary:BaseURL") ?? ""));
 builder.Services.AddApplicationServices();
 builder.Services.AddInfrastructureServices();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
