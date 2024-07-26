@@ -2,6 +2,8 @@ ReadersEdition.Web/bin/*
 ReadersEdition.Web/obj/*
 ReadersEdition.Tests/bin/*
 ReadersEdition.Tests/obj/*
+ReadersEdition.Blazor/obj/*
+ReadersEdition.Blazor/bin/*
 ReadersEdition.Infrastructure/obj/*
 ReadersEdition.Infrastructure/bin/*
 ReadersEdition.Domain/bin/*

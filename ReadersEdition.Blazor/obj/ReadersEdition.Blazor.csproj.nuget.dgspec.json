@@ -1,20 +1,169 @@
 {
   "format": 1,
   "restore": {
-    "/home/elliotl/Documents/Reader-s-Edition/ReadersEdition.Blazor/ReadersEdition.Blazor.csproj": {}
+    "/home/elliot/Documents/Reader-s-Edition/Reader-s-Edition/ReadersEdition.Blazor/ReadersEdition.Blazor.csproj": {}
   },
   "projects": {
-    "/home/elliotl/Documents/Reader-s-Edition/ReadersEdition.Blazor/ReadersEdition.Blazor.csproj": {
+    "/home/elliot/Documents/Reader-s-Edition/Reader-s-Edition/ReadersEdition.Application/ReadersEdition.Application.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/elliotl/Documents/Reader-s-Edition/ReadersEdition.Blazor/ReadersEdition.Blazor.csproj",
-        "projectName": "ReadersEdition.Blazor",
-        "projectPath": "/home/elliotl/Documents/Reader-s-Edition/ReadersEdition.Blazor/ReadersEdition.Blazor.csproj",
-        "packagesPath": "/home/elliotl/.nuget/packages/",
-        "outputPath": "/home/elliotl/Documents/Reader-s-Edition/ReadersEdition.Blazor/obj/",
+        "projectUniqueName": "/home/elliot/Documents/Reader-s-Edition/Reader-s-Edition/ReadersEdition.Application/ReadersEdition.Application.csproj",
+        "projectName": "ReadersEdition.Application",
+        "projectPath": "/home/elliot/Documents/Reader-s-Edition/Reader-s-Edition/ReadersEdition.Application/ReadersEdition.Application.csproj",
+        "packagesPath": "/home/elliot/.nuget/packages/",
+        "outputPath": "/home/elliot/Documents/Reader-s-Edition/Reader-s-Edition/ReadersEdition.Application/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/home/elliotl/.nuget/NuGet/NuGet.Config"
+          "/home/elliot/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "/home/elliot/Documents/Reader-s-Edition/Reader-s-Edition/ReadersEdition.Domain/ReadersEdition.Domain.csproj": {
+                "projectPath": "/home/elliot/Documents/Reader-s-Edition/Reader-s-Edition/ReadersEdition.Domain/ReadersEdition.Domain.csproj"
+              },
+              "/home/elliot/Documents/Reader-s-Edition/Reader-s-Edition/ReadersEdition.Infrastructure/ReadersEdition.Infrastructure.csproj": {
+                "projectPath": "/home/elliot/Documents/Reader-s-Edition/Reader-s-Edition/ReadersEdition.Infrastructure/ReadersEdition.Infrastructure.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "MediatR": {
+              "target": "Package",
+              "version": "[12.3.0, )"
+            },
+            "MediatR.Extensions.Microsoft.DependencyInjection": {
+              "target": "Package",
+              "version": "[11.1.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/8.0.107/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/home/elliot/Documents/Reader-s-Edition/Reader-s-Edition/ReadersEdition.Blazor/ReadersEdition.Blazor.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/home/elliot/Documents/Reader-s-Edition/Reader-s-Edition/ReadersEdition.Blazor/ReadersEdition.Blazor.csproj",
+        "projectName": "ReadersEdition.Blazor",
+        "projectPath": "/home/elliot/Documents/Reader-s-Edition/Reader-s-Edition/ReadersEdition.Blazor/ReadersEdition.Blazor.csproj",
+        "packagesPath": "/home/elliot/.nuget/packages/",
+        "outputPath": "/home/elliot/Documents/Reader-s-Edition/Reader-s-Edition/ReadersEdition.Blazor/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/home/elliot/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "/home/elliot/Documents/Reader-s-Edition/Reader-s-Edition/ReadersEdition.Application/ReadersEdition.Application.csproj": {
+                "projectPath": "/home/elliot/Documents/Reader-s-Edition/Reader-s-Edition/ReadersEdition.Application/ReadersEdition.Application.csproj"
+              },
+              "/home/elliot/Documents/Reader-s-Edition/Reader-s-Edition/ReadersEdition.Domain/ReadersEdition.Domain.csproj": {
+                "projectPath": "/home/elliot/Documents/Reader-s-Edition/Reader-s-Edition/ReadersEdition.Domain/ReadersEdition.Domain.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "MediatR": {
+              "target": "Package",
+              "version": "[12.3.0, )"
+            },
+            "MediatR.Extensions.Microsoft.DependencyInjection": {
+              "target": "Package",
+              "version": "[11.1.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[8.0.7, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/8.0.107/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/home/elliot/Documents/Reader-s-Edition/Reader-s-Edition/ReadersEdition.Domain/ReadersEdition.Domain.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/home/elliot/Documents/Reader-s-Edition/Reader-s-Edition/ReadersEdition.Domain/ReadersEdition.Domain.csproj",
+        "projectName": "ReadersEdition.Domain",
+        "projectPath": "/home/elliot/Documents/Reader-s-Edition/Reader-s-Edition/ReadersEdition.Domain/ReadersEdition.Domain.csproj",
+        "packagesPath": "/home/elliot/.nuget/packages/",
+        "outputPath": "/home/elliot/Documents/Reader-s-Edition/Reader-s-Edition/ReadersEdition.Domain/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/home/elliot/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
@@ -49,9 +198,87 @@
           "assetTargetFallback": true,
           "warn": true,
           "frameworkReferences": {
-            "Microsoft.AspNetCore.App": {
-              "privateAssets": "none"
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/8.0.107/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/home/elliot/Documents/Reader-s-Edition/Reader-s-Edition/ReadersEdition.Infrastructure/ReadersEdition.Infrastructure.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/home/elliot/Documents/Reader-s-Edition/Reader-s-Edition/ReadersEdition.Infrastructure/ReadersEdition.Infrastructure.csproj",
+        "projectName": "ReadersEdition.Infrastructure",
+        "projectPath": "/home/elliot/Documents/Reader-s-Edition/Reader-s-Edition/ReadersEdition.Infrastructure/ReadersEdition.Infrastructure.csproj",
+        "packagesPath": "/home/elliot/.nuget/packages/",
+        "outputPath": "/home/elliot/Documents/Reader-s-Edition/Reader-s-Edition/ReadersEdition.Infrastructure/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/home/elliot/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "/home/elliot/Documents/Reader-s-Edition/Reader-s-Edition/ReadersEdition.Domain/ReadersEdition.Domain.csproj": {
+                "projectPath": "/home/elliot/Documents/Reader-s-Edition/Reader-s-Edition/ReadersEdition.Domain/ReadersEdition.Domain.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "HtmlAgilityPack": {
+              "target": "Package",
+              "version": "[1.11.61, )"
             },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[8.0.7, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[8.0.7, )"
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.3, )"
+            },
+            "Npgsql.EntityFrameworkCore.PostgreSQL": {
+              "target": "Package",
+              "version": "[8.0.4, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
