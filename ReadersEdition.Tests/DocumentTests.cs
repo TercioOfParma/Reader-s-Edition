@@ -8,7 +8,7 @@ public class DocumentTests
     [SetUp]
     public void Setup()
     {
-        Doc = new Document("This*is,A.Proper!Test;For Vocab", true, 30);
+        Doc = new Document("This*is,A.Proper!Test;For Vocab", true);
     }
 
     [Test]

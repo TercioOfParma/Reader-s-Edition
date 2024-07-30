@@ -1,4 +1,7 @@
 using ReadersEdition.Blazor.Components;
+using Radzen.Blazor;
+using Radzen;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,7 +14,7 @@ builder.Services.AddRazorComponents()
 builder.Services.AddScoped<IDictionaryRetriever>(x => new WiktionaryClient(builder.Configuration.GetValue<string>("Wiktionary:BaseURL") ?? ""));
 builder.Services.AddApplicationServices();
 builder.Services.AddInfrastructureServices();
-
+builder.Services.AddRadzenComponents();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

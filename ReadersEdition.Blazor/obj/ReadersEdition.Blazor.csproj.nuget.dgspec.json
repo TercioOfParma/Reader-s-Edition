@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "/home/elliotl/Documents/Reader-s-Edition/ReadersEdition.Blazor/ReadersEdition.Blazor.csproj": {}
+    "/home/elliot/Documents/Reader-s-Edition/Reader-s-Edition/ReadersEdition.Blazor/ReadersEdition.Blazor.csproj": {}
   },
   "projects": {
-    "/home/elliotl/Documents/Reader-s-Edition/ReadersEdition.Application/ReadersEdition.Application.csproj": {
+    "/home/elliot/Documents/Reader-s-Edition/Reader-s-Edition/ReadersEdition.Application/ReadersEdition.Application.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/elliotl/Documents/Reader-s-Edition/ReadersEdition.Application/ReadersEdition.Application.csproj",
+        "projectUniqueName": "/home/elliot/Documents/Reader-s-Edition/Reader-s-Edition/ReadersEdition.Application/ReadersEdition.Application.csproj",
         "projectName": "ReadersEdition.Application",
-        "projectPath": "/home/elliotl/Documents/Reader-s-Edition/ReadersEdition.Application/ReadersEdition.Application.csproj",
-        "packagesPath": "/home/elliotl/.nuget/packages/",
-        "outputPath": "/home/elliotl/Documents/Reader-s-Edition/ReadersEdition.Application/obj/",
+        "projectPath": "/home/elliot/Documents/Reader-s-Edition/Reader-s-Edition/ReadersEdition.Application/ReadersEdition.Application.csproj",
+        "packagesPath": "/home/elliot/.nuget/packages/",
+        "outputPath": "/home/elliot/Documents/Reader-s-Edition/Reader-s-Edition/ReadersEdition.Application/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/home/elliotl/.nuget/NuGet/NuGet.Config"
+          "/home/elliot/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
@@ -26,11 +26,11 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "/home/elliotl/Documents/Reader-s-Edition/ReadersEdition.Domain/ReadersEdition.Domain.csproj": {
-                "projectPath": "/home/elliotl/Documents/Reader-s-Edition/ReadersEdition.Domain/ReadersEdition.Domain.csproj"
+              "/home/elliot/Documents/Reader-s-Edition/Reader-s-Edition/ReadersEdition.Domain/ReadersEdition.Domain.csproj": {
+                "projectPath": "/home/elliot/Documents/Reader-s-Edition/Reader-s-Edition/ReadersEdition.Domain/ReadersEdition.Domain.csproj"
               },
-              "/home/elliotl/Documents/Reader-s-Edition/ReadersEdition.Infrastructure/ReadersEdition.Infrastructure.csproj": {
-                "projectPath": "/home/elliotl/Documents/Reader-s-Edition/ReadersEdition.Infrastructure/ReadersEdition.Infrastructure.csproj"
+              "/home/elliot/Documents/Reader-s-Edition/Reader-s-Edition/ReadersEdition.Infrastructure/ReadersEdition.Infrastructure.csproj": {
+                "projectPath": "/home/elliot/Documents/Reader-s-Edition/Reader-s-Edition/ReadersEdition.Infrastructure/ReadersEdition.Infrastructure.csproj"
               }
             }
           }
@@ -74,17 +74,17 @@
         }
       }
     },
-    "/home/elliotl/Documents/Reader-s-Edition/ReadersEdition.Blazor/ReadersEdition.Blazor.csproj": {
+    "/home/elliot/Documents/Reader-s-Edition/Reader-s-Edition/ReadersEdition.Blazor/ReadersEdition.Blazor.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/elliotl/Documents/Reader-s-Edition/ReadersEdition.Blazor/ReadersEdition.Blazor.csproj",
+        "projectUniqueName": "/home/elliot/Documents/Reader-s-Edition/Reader-s-Edition/ReadersEdition.Blazor/ReadersEdition.Blazor.csproj",
         "projectName": "ReadersEdition.Blazor",
-        "projectPath": "/home/elliotl/Documents/Reader-s-Edition/ReadersEdition.Blazor/ReadersEdition.Blazor.csproj",
-        "packagesPath": "/home/elliotl/.nuget/packages/",
-        "outputPath": "/home/elliotl/Documents/Reader-s-Edition/ReadersEdition.Blazor/obj/",
+        "projectPath": "/home/elliot/Documents/Reader-s-Edition/Reader-s-Edition/ReadersEdition.Blazor/ReadersEdition.Blazor.csproj",
+        "packagesPath": "/home/elliot/.nuget/packages/",
+        "outputPath": "/home/elliot/Documents/Reader-s-Edition/Reader-s-Edition/ReadersEdition.Blazor/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/home/elliotl/.nuget/NuGet/NuGet.Config"
+          "/home/elliot/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
@@ -96,14 +96,14 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "/home/elliotl/Documents/Reader-s-Edition/ReadersEdition.Application/ReadersEdition.Application.csproj": {
-                "projectPath": "/home/elliotl/Documents/Reader-s-Edition/ReadersEdition.Application/ReadersEdition.Application.csproj"
+              "/home/elliot/Documents/Reader-s-Edition/Reader-s-Edition/ReadersEdition.Application/ReadersEdition.Application.csproj": {
+                "projectPath": "/home/elliot/Documents/Reader-s-Edition/Reader-s-Edition/ReadersEdition.Application/ReadersEdition.Application.csproj"
               },
-              "/home/elliotl/Documents/Reader-s-Edition/ReadersEdition.Domain/ReadersEdition.Domain.csproj": {
-                "projectPath": "/home/elliotl/Documents/Reader-s-Edition/ReadersEdition.Domain/ReadersEdition.Domain.csproj"
+              "/home/elliot/Documents/Reader-s-Edition/Reader-s-Edition/ReadersEdition.Domain/ReadersEdition.Domain.csproj": {
+                "projectPath": "/home/elliot/Documents/Reader-s-Edition/Reader-s-Edition/ReadersEdition.Domain/ReadersEdition.Domain.csproj"
               },
-              "/home/elliotl/Documents/Reader-s-Edition/ReadersEdition.Infrastructure/ReadersEdition.Infrastructure.csproj": {
-                "projectPath": "/home/elliotl/Documents/Reader-s-Edition/ReadersEdition.Infrastructure/ReadersEdition.Infrastructure.csproj"
+              "/home/elliot/Documents/Reader-s-Edition/Reader-s-Edition/ReadersEdition.Infrastructure/ReadersEdition.Infrastructure.csproj": {
+                "projectPath": "/home/elliot/Documents/Reader-s-Edition/Reader-s-Edition/ReadersEdition.Infrastructure/ReadersEdition.Infrastructure.csproj"
               }
             }
           }
@@ -134,7 +134,7 @@
             },
             "Radzen.Blazor": {
               "target": "Package",
-              "version": "[5.0.3, )"
+              "version": "[*, )"
             }
           },
           "imports": [
@@ -160,17 +160,17 @@
         }
       }
     },
-    "/home/elliotl/Documents/Reader-s-Edition/ReadersEdition.Domain/ReadersEdition.Domain.csproj": {
+    "/home/elliot/Documents/Reader-s-Edition/Reader-s-Edition/ReadersEdition.Domain/ReadersEdition.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/elliotl/Documents/Reader-s-Edition/ReadersEdition.Domain/ReadersEdition.Domain.csproj",
+        "projectUniqueName": "/home/elliot/Documents/Reader-s-Edition/Reader-s-Edition/ReadersEdition.Domain/ReadersEdition.Domain.csproj",
         "projectName": "ReadersEdition.Domain",
-        "projectPath": "/home/elliotl/Documents/Reader-s-Edition/ReadersEdition.Domain/ReadersEdition.Domain.csproj",
-        "packagesPath": "/home/elliotl/.nuget/packages/",
-        "outputPath": "/home/elliotl/Documents/Reader-s-Edition/ReadersEdition.Domain/obj/",
+        "projectPath": "/home/elliot/Documents/Reader-s-Edition/Reader-s-Edition/ReadersEdition.Domain/ReadersEdition.Domain.csproj",
+        "packagesPath": "/home/elliot/.nuget/packages/",
+        "outputPath": "/home/elliot/Documents/Reader-s-Edition/Reader-s-Edition/ReadersEdition.Domain/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/home/elliotl/.nuget/NuGet/NuGet.Config"
+          "/home/elliot/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
@@ -213,17 +213,17 @@
         }
       }
     },
-    "/home/elliotl/Documents/Reader-s-Edition/ReadersEdition.Infrastructure/ReadersEdition.Infrastructure.csproj": {
+    "/home/elliot/Documents/Reader-s-Edition/Reader-s-Edition/ReadersEdition.Infrastructure/ReadersEdition.Infrastructure.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/elliotl/Documents/Reader-s-Edition/ReadersEdition.Infrastructure/ReadersEdition.Infrastructure.csproj",
+        "projectUniqueName": "/home/elliot/Documents/Reader-s-Edition/Reader-s-Edition/ReadersEdition.Infrastructure/ReadersEdition.Infrastructure.csproj",
         "projectName": "ReadersEdition.Infrastructure",
-        "projectPath": "/home/elliotl/Documents/Reader-s-Edition/ReadersEdition.Infrastructure/ReadersEdition.Infrastructure.csproj",
-        "packagesPath": "/home/elliotl/.nuget/packages/",
-        "outputPath": "/home/elliotl/Documents/Reader-s-Edition/ReadersEdition.Infrastructure/obj/",
+        "projectPath": "/home/elliot/Documents/Reader-s-Edition/Reader-s-Edition/ReadersEdition.Infrastructure/ReadersEdition.Infrastructure.csproj",
+        "packagesPath": "/home/elliot/.nuget/packages/",
+        "outputPath": "/home/elliot/Documents/Reader-s-Edition/Reader-s-Edition/ReadersEdition.Infrastructure/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/home/elliotl/.nuget/NuGet/NuGet.Config"
+          "/home/elliot/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
@@ -235,8 +235,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "/home/elliotl/Documents/Reader-s-Edition/ReadersEdition.Domain/ReadersEdition.Domain.csproj": {
-                "projectPath": "/home/elliotl/Documents/Reader-s-Edition/ReadersEdition.Domain/ReadersEdition.Domain.csproj"
+              "/home/elliot/Documents/Reader-s-Edition/Reader-s-Edition/ReadersEdition.Domain/ReadersEdition.Domain.csproj": {
+                "projectPath": "/home/elliot/Documents/Reader-s-Edition/Reader-s-Edition/ReadersEdition.Domain/ReadersEdition.Domain.csproj"
               }
             }
           }

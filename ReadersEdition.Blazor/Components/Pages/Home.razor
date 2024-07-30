@@ -1,5 +1,18 @@
 ﻿@page "/"
+@rendermode RenderMode.InteractiveServer
+
 
 <PageTitle>Reader's Edition</PageTitle>
 
 Welcome to Reader's Edition, where you can have your text in a modern language glossed for you!.
+
+
+<button @onclick="async () => await test()">Test</button>
+@code 
+{
+    public async Task test()
+    {
+        await Task.CompletedTask;
+        Console.WriteLine("Hello World");
+    }
+}
