@@ -1,0 +1,23 @@
+@page "/admin/words";
+
+@if(Words != null)
+{
+    <RadzenDataGrid Data="Words">
+        <Columns>
+            <RadzenDataGridColumn Property="Definition.Word" Title="Word"></RadzenDataGridColumn>
+            <RadzenDataGridColumn Property="Definition.Gloss" Title="Gloss"></RadzenDataGridColumn>
+        </Columns>
+    </RadzenDataGrid>
+}
+
+@code {
+    [Inject]
+    public IMediator Mediator {get; set;}
+    public List<DefinitionDto> Words {get; set;}
+
+    protected override async Task OnInitializedAsync()
+    {
+        var result = await Mediator.Send(new GetDefinitionsQuery{});
+        Words = result.Words;
+    }
+}

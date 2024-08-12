@@ -15,7 +15,10 @@ public class ApplicationDbContext : DbContext, IUnitOfWork
         await SaveChangesAsync();
         return Result.Success();
     }
-
+    public async Task<IEnumerable<Definition>> GetDefinitions()
+    {
+        return await Definitions.ToListAsync();
+    }
     public async Task<IDictionary<string,Definition>> GetDefinitions(Document document, Language documentLanguage, Language glossLanguage)
     {
         var result = await Definitions.Where(x => document.Glosses.Keys.Any(y => y == x.Word && 
