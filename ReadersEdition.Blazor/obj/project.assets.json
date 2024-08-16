@@ -776,7 +776,7 @@
           }
         }
       },
-      "Radzen.Blazor/5.0.4": {
+      "Radzen.Blazor/5.1.1": {
         "type": "package",
         "dependencies": {
           "DartSassBuilder": "1.0.0",
@@ -2366,10 +2366,10 @@
         "postgresql.png"
       ]
     },
-    "Radzen.Blazor/5.0.4": {
-      "sha512": "9eUVxsAIhcl6SrZ+xutBTKfeecnieZ15m8+jRj2ZSzU9TILq6tKMobH8O7A9XYmrzh34nVnQUS7PMFTGWX6dGA==",
+    "Radzen.Blazor/5.1.1": {
+      "sha512": "quOdCXqMxziEKCoEjPB55E0oR7im85lpxIQ1FjBiGe9srICCZ0E/osh3BPGwLm2tJlJ+TjFVsaSxplvu+8al8Q==",
       "type": "package",
-      "path": "radzen.blazor/5.0.4",
+      "path": "radzen.blazor/5.1.1",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -2386,7 +2386,7 @@
         "lib/net7.0/Radzen.Blazor.xml",
         "lib/net8.0/Radzen.Blazor.dll",
         "lib/net8.0/Radzen.Blazor.xml",
-        "radzen.blazor.5.0.4.nupkg.sha512",
+        "radzen.blazor.5.1.1.nupkg.sha512",
         "radzen.blazor.nuspec",
         "staticwebassets/Radzen.Blazor.js",
         "staticwebassets/css/dark-base.css",
@@ -2395,10 +2395,6 @@
         "staticwebassets/css/default-base.css",
         "staticwebassets/css/default-wcag.css",
         "staticwebassets/css/default.css",
-        "staticwebassets/css/fluent-base.css",
-        "staticwebassets/css/fluent-dark-base.css",
-        "staticwebassets/css/fluent-dark.css",
-        "staticwebassets/css/fluent.css",
         "staticwebassets/css/humanistic-base.css",
         "staticwebassets/css/humanistic-dark-base.css",
         "staticwebassets/css/humanistic-dark-wcag.css",
@@ -2411,10 +2407,6 @@
         "staticwebassets/css/material-dark.css",
         "staticwebassets/css/material-wcag.css",
         "staticwebassets/css/material.css",
-        "staticwebassets/css/material3-base.css",
-        "staticwebassets/css/material3-dark-base.css",
-        "staticwebassets/css/material3-dark.css",
-        "staticwebassets/css/material3.css",
         "staticwebassets/css/software-base.css",
         "staticwebassets/css/software-dark-base.css",
         "staticwebassets/css/software-dark-wcag.css",
@@ -3031,7 +3023,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/8.0.107/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/8.0.108/PortableRuntimeIdentifierGraph.json"
       }
     }
   },

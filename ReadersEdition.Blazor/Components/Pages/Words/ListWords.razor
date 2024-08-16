@@ -2,7 +2,7 @@
 
 @if(Words != null)
 {
-    <RadzenDataGrid Data="Words">
+    <RadzenDataGrid Data="Words" TItem="DefinitionDto">
         <Columns>
             <RadzenDataGridColumn Property="Definition.Word" Title="Word"></RadzenDataGridColumn>
             <RadzenDataGridColumn Property="Definition.Gloss" Title="Gloss"></RadzenDataGridColumn>

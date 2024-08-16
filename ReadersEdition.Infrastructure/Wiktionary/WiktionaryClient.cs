@@ -58,9 +58,12 @@ public class WiktionaryClient : HttpClient, IDictionaryRetriever
     /// <param name="wordLanguage">The Language of the Word</param>
     /// <param name="glossLanguage">The Language of the Gloss</param>
     /// <returns></returns>
-    public async Task<IDictionary<string, List<Definition>>> GetDefinitions(IEnumerable<string> words, Language wordLanguage, Language glossLanguage)
+    public async Task<IDictionary<string, List<Definition>>> GetDefinitions(IEnumerable<string> words, Language wordLanguage, Language glossLanguage, int i = 0)
     {
         var dict = new Dictionary<string, List<Definition>>();
+        int j = i + 1;
+        if(j == 10) //I've realised that there are infinite loops of links
+            return dict;
         foreach(var word in words)
         {
             var definitions = await LoadWiktionaryDefinitions(word, wordLanguage, glossLanguage);
@@ -68,11 +71,14 @@ public class WiktionaryClient : HttpClient, IDictionaryRetriever
             definitions.ToList().RemoveAll(x => inflections.Any(y => y.Gloss == x.Gloss));
             if(inflections.Count() != 0)
             {
-                Console.WriteLine("In Inflections");
+                Console.WriteLine($"In Inflections {word} depth {i}");
                 var rawInflections = await StripHTMLFromInflections(inflections);
-                var defined = await GetDefinitions(rawInflections.Keys, wordLanguage, glossLanguage);
+                var defined = await GetDefinitions(rawInflections.Keys, wordLanguage, glossLanguage, j);
                 foreach(var list in defined.Values)
-                    dict[word].AddRange(list.ToList());
+                {
+                    if(dict.ContainsKey(word))
+                        dict[word].AddRange(list.ToList());
+                }
             }
             StripHTMLFromDefinitions(definitions);
             Console.WriteLine(dict.Count());

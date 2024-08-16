@@ -32,7 +32,6 @@ public class GetDefinitionsHandler(IUnitOfWork db, IMediator mediator) : IReques
             dto.WordLanguage = languages.Where(x => x.LanguageId == word.WordLanguageId).FirstOrDefault()?.LanguageName;
             dto.GlossLanguage = languages.Where(x => x.LanguageId == word.GlossLanguageId).FirstOrDefault()?.LanguageName;
             result.Words.Add(dto);
-
         }
 
         return result;

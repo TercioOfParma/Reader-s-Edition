@@ -33,11 +33,11 @@ public class LoadDefinitionsHandler : IRequestHandler<LoadDefinitionsQuery, Load
         var missingDefinitions = document.Glosses.Keys.Where(x => !dbDefinitions.Keys.Any(y => y == x)).ToList();
         foreach(var def in missingDefinitions)
             Console.WriteLine(def);
-        
+        missingDefinitions.Remove(" ");
         var wiktionaryDefinitions = await _retriever.GetDefinitions(missingDefinitions, request.TextLanguage, request.GlossLanguage);
         var toSave = new List<Definition>();
         foreach(var word in wiktionaryDefinitions)
-            toSave.AddRange(word.Value);
+            toSave.AddRange(word.Value.Distinct());
         
         
         await _db.AddDefinitions(toSave,request.TextLanguage, request.GlossLanguage);

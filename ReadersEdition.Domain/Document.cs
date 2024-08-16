@@ -43,7 +43,7 @@ public class Document
 
         foreach(char c in DocumentContents)
         {
-            if(char.IsPunctuation(c))
+            if(char.IsPunctuation(c) || c == '\n' || c == '\r')
                 str.Append(' ');
             else 
                 str.Append(c);

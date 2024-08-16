@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "49Lx98Mru01f58pWJDdKI3Fcv6NxXiykF4yCdPNI8C13KlbKbwx3ChIzKgkAk5eV/L9PK5j86G1QwFCjiKqiCw==",
+  "dgSpecHash": "lx/WVoNOFxnEEx33U6rZ4QIi1Vn0m4ta6qWv+ST5ORfvnKgqHMU77l6CrgyuUrL9AejINZm4SWtUDmHzru2exA==",
   "success": true,
   "projectFilePath": "/home/elliot/Documents/Reader-s-Edition/Reader-s-Edition/ReadersEdition.Blazor/ReadersEdition.Blazor.csproj",
   "expectedPackageFiles": [
@@ -42,7 +42,7 @@
     "/home/elliot/.nuget/packages/newtonsoft.json/13.0.3/newtonsoft.json.13.0.3.nupkg.sha512",
     "/home/elliot/.nuget/packages/npgsql/8.0.3/npgsql.8.0.3.nupkg.sha512",
     "/home/elliot/.nuget/packages/npgsql.entityframeworkcore.postgresql/8.0.4/npgsql.entityframeworkcore.postgresql.8.0.4.nupkg.sha512",
-    "/home/elliot/.nuget/packages/radzen.blazor/5.0.4/radzen.blazor.5.0.4.nupkg.sha512",
+    "/home/elliot/.nuget/packages/radzen.blazor/5.1.1/radzen.blazor.5.1.1.nupkg.sha512",
     "/home/elliot/.nuget/packages/system.codedom/4.4.0/system.codedom.4.4.0.nupkg.sha512",
     "/home/elliot/.nuget/packages/system.collections.immutable/6.0.0/system.collections.immutable.6.0.0.nupkg.sha512",
     "/home/elliot/.nuget/packages/system.composition/6.0.0/system.composition.6.0.0.nupkg.sha512",
