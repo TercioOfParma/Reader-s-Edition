@@ -1,0 +1,26 @@
+@using Radzen.Blazor
+
+@page "/admin/loadwords"
+
+
+<div class="row">
+    <InputFile OnChange="LoadFiles" ></InputFile>
+    <RadzenCheckBox @bind-Value="Query.ComprehensibleInput"></RadzenCheckBox>
+</div>
+
+
+@code 
+{
+    protected LoadDefinitionsQuery Query {get; set;} = new();
+    protected IBrowserFile File {get; set;}
+
+    private async Task LoadFiles(InputFileChangeEventArgs e)
+    {
+        File = e.File;
+        var memoryStream = new MemoryStream();
+        File.OpenReadStream().CopyTo(memoryStream);
+        memoryStream.Position = 0;
+        var reader = new StreamReader(memoryStream);
+        Query.Text = await reader.ReadToEndAsync();
+    }
+}
