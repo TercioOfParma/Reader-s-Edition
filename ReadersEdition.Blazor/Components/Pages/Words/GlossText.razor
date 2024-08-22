@@ -1,0 +1,52 @@
+@using Radzen.Blazor
+
+@page "/glosstext"
+
+@if(Languages != null)
+{
+    <div class="row">
+        <RadzenLabel Component="FileUpload">Upload File</RadzenLabel>
+        <InputFile OnChange="LoadFiles"></InputFile>
+        <RadzenLabel Component="ComprehensibleInput">Comprehensible Input</RadzenLabel>
+        <RadzenCheckBox Name="ComprehensibleInput" @bind-Value="Query.ComprehensibleInput"></RadzenCheckBox>
+        @if(Query.ComprehensibleInput)
+        {
+            <RadzenLabel Component="ComprehensibleInputThreshold">Comprehensible Input Threshold of Glossing</RadzenLabel>
+            <RadzenNumeric Name="ComprehensibleInputThreshold" @bind-Value="Query.ComprehensibleInputThreshold"></RadzenNumeric>
+        }
+        else
+        {
+            <RadzenLabel Component="Frequency">Frequency Word Threshold for Glossing</RadzenLabel>
+            <RadzenNumeric Name="Frequency" @bind-Value="Query.FrequencyInFileThreshold"></RadzenNumeric>
+        
+        }
+        <RadzenLabel Component="TextLanguage">Text Language</RadzenLabel>
+        <RadzenDropDown @bind-Value="Query.TextLanguage" Data="Languages" TextProperty="LanguageName" Name="TextLanguage"></RadzenDropDown>
+        <RadzenLabel Component="GlossLanguage">Gloss Language</RadzenLabel>
+        <RadzenDropDown @bind-Value="Query.GlossLanguage" Data="Languages" TextProperty="LanguageName" Name="GlossLanguage"></RadzenDropDown>
+    </div>
+}
+
+@code 
+{
+    [Inject]
+    public IMediator Mediator {get; set;}
+    public GetDefinitionsForTextQuery Query {get; set;} = new();
+    public IBrowserFile File {get; set;}
+    public List<Language> Languages {get; set;}
+    protected override async Task OnInitializedAsync()
+    {
+        var result = await Mediator.Send(new GetLanguagesQuery());
+        Languages = result.Languages.ToList();
+    }
+    private async Task LoadFiles(InputFileChangeEventArgs e)
+    {
+        File = e.File;
+        var memoryStream = new MemoryStream();
+        File.OpenReadStream().CopyTo(memoryStream);
+        memoryStream.Position = 0;
+        var reader = new StreamReader(memoryStream);
+        Query.Text = await reader.ReadToEndAsync();
+    }
+    
+}
