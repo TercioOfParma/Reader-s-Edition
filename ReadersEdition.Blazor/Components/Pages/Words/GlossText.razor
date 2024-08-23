@@ -6,7 +6,7 @@
 {
     <div class="row">
         <RadzenLabel Component="FileUpload">Upload File</RadzenLabel>
-        <InputFile OnChange="LoadFiles"></InputFile>
+        <InputFile OnChange="LoadFile"></InputFile>
         <RadzenLabel Component="ComprehensibleInput">Comprehensible Input</RadzenLabel>
         <RadzenCheckBox Name="ComprehensibleInput" @bind-Value="Query.ComprehensibleInput"></RadzenCheckBox>
         @if(Query.ComprehensibleInput)
@@ -34,12 +34,13 @@
     public GetDefinitionsForTextQuery Query {get; set;} = new();
     public IBrowserFile File {get; set;}
     public List<Language> Languages {get; set;}
+    public List<Definition> Definitions {get; set;}
     protected override async Task OnInitializedAsync()
     {
         var result = await Mediator.Send(new GetLanguagesQuery());
         Languages = result.Languages.ToList();
     }
-    private async Task LoadFiles(InputFileChangeEventArgs e)
+    private async Task LoadFile(InputFileChangeEventArgs e)
     {
         File = e.File;
         var memoryStream = new MemoryStream();
@@ -47,6 +48,8 @@
         memoryStream.Position = 0;
         var reader = new StreamReader(memoryStream);
         Query.Text = await reader.ReadToEndAsync();
+        var result = await Mediator.Send(Query);
+        Definitions = result.Definitions;
     }
     
 }
