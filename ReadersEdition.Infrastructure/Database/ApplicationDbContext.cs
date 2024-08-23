@@ -9,11 +9,20 @@ public class ApplicationDbContext : DbContext, IUnitOfWork
     private DbSet<Language> Languages {get; set;}
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
             => optionsBuilder.UseNpgsql("Host=localhost;Database=my_db;Username=my_user;Password=my_pw");
+    
+    public async Task<IEnumerable<Definition>> GetComprehensibleInputDefinitions(List<string> words, int threshold)
+    {
+        return await Definitions.Where(x => words.Contains(x.Word)).ToListAsync();
+    }
     public async Task<Result> AddDefinitions(IEnumerable<Definition> Words, Language wordLanguage, Language glossLanguage)
     {
         await Definitions.AddRangeAsync(Words);
         await SaveChangesAsync();
         return Result.Success();
+    }
+    public async Task<IEnumerable<Definition>> GetDefinitions(List<string> words)
+    {
+        return await Definitions.Where(x => words.Contains(x.Word)).ToListAsync();
     }
     public async Task<IEnumerable<Definition>> GetDefinitions()
     {
