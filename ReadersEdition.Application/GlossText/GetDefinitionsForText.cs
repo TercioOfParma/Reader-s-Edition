@@ -14,7 +14,7 @@ public class GetDefinitionsForTextQuery : IRequest<GetDefinitionsForTextResult>
 
 public class GetDefinitionsForTextResult
 {
-
+    public List<Definition> Definitions {get; set;}
 }
 
 public class GetDefinitionsForTextHandler(IUnitOfWork _db) : IRequestHandler<GetDefinitionsForTextQuery, GetDefinitionsForTextResult>
@@ -27,19 +27,21 @@ public class GetDefinitionsForTextHandler(IUnitOfWork _db) : IRequestHandler<Get
         {
             var frequencyWords = GetWordsForFrequency(words.ToList(), request.FrequencyInFileThreshold);
             var definitions = await _db.GetDefinitions(frequencyWords);
+
+            result.Definitions = definitions.ToList();
         }
         else 
         {
-            var frequencyWords = GetWordsForComprehensibleInput(words.ToList(), request.ComprehensibleInputThreshold);
+            var frequencyWords = await GetWordsForComprehensibleInput(words.ToList(), request.ComprehensibleInputThreshold);
+
+            result.Definitions = frequencyWords;
         }
         return result;
     }
-    public List<string> GetWordsForComprehensibleInput(List<string> words, int threshold)
+    public async Task<List<Definition>> GetWordsForComprehensibleInput(List<string> words, int threshold)
     {
-        var relevantWords = words.ToList();
-
-
-        return relevantWords;
+        var relevantWords = await _db.GetComprehensibleInputDefinitions(words, threshold);
+        return relevantWords.ToList();
     }
     public List<string> GetWordsForFrequency(List<string> words, int threshold)
     {
