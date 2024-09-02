@@ -24,3 +24,11 @@ How it will be handled:
     - Take in a text and load all of the words in for the appropriate languages
     - Take in a text in a certain text language, and return a table of words with selections of the glosses for those words
     - Add in a scaffold for that based on the frequency of the word in the text
+
+
+
+    How to take in a text and gloss it accurately?
+    1) Load only the words that pass the threshold
+    2) Load those from the database
+    3) Load the definitions into each instance of the world
+    4) Return to the Frontend

@@ -47,6 +47,7 @@ public class GetDefinitionsForTextHandler(IUnitOfWork _db) : IRequestHandler<Get
     {
         var relevantWords = new Dictionary<string,int>();
         var toStrip = words.ToList();
+        var toSearchUp = words.Distinct().ToList();
         while(toStrip.Count() != 0)
         {
             var word = toStrip.FirstOrDefault();
