@@ -14,8 +14,13 @@ public class GetDefinitionsForTextQuery : IRequest<GetDefinitionsForTextResult>
 
 public class GetDefinitionsForTextResult
 {
-    public List<Definition> Definitions {get; set;}
+    public List<WordInstance> WordInstances {get; set;} = new();
 }
+
+    public class WordInstance{
+        public string Word {get; set;}
+        public List<Definition> Definitions {get; set;}
+    }
 
 public class GetDefinitionsForTextHandler(IUnitOfWork _db) : IRequestHandler<GetDefinitionsForTextQuery, GetDefinitionsForTextResult>
 {
@@ -28,13 +33,22 @@ public class GetDefinitionsForTextHandler(IUnitOfWork _db) : IRequestHandler<Get
             var frequencyWords = GetWordsForFrequency(words.ToList(), request.FrequencyInFileThreshold);
             var definitions = await _db.GetDefinitions(frequencyWords);
 
-            result.Definitions = definitions.ToList();
+            foreach(var word in words)
+            {
+                var instance = new WordInstance { Word = word};
+                instance.Definitions = definitions.Where(x => x.Word == word).ToList();
+                result.WordInstances.Add(instance);
+            }
         }
         else 
         {
             var frequencyWords = await GetWordsForComprehensibleInput(words.ToList(), request.ComprehensibleInputThreshold);
-
-            result.Definitions = frequencyWords;
+            foreach(var word in words)
+            {
+                var instance = new WordInstance { Word = word};
+                instance.Definitions = frequencyWords.Where(x => x.Word == word).ToList();
+                result.WordInstances.Add(instance);
+            }
         }
         return result;
     }
