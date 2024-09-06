@@ -19,6 +19,8 @@ public class GetDefinitionsForTextResult
 
     public class WordInstance{
         public string Word {get; set;}
+        public string SurroundingSentence {get; set;}
+        public string DisplayDefinitions {get; set;}
         public List<Definition> Definitions {get; set;}
     }
 

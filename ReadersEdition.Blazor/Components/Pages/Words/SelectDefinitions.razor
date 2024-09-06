@@ -1,0 +1,15 @@
+
+@if(Words != null)
+{
+    <RadzenDataGrid Data="Words">
+        <RadzenDataGridColumn Property="Word">
+        </RadzenDataGridColumn>
+        <RadzenDataGridColumn Property="SurroundingSentence"></RadzenDataGridColumn>
+    </RadzenDataGrid>
+}
+@code {
+    [Inject]
+    public IMediator Mediator {get; set;}
+    [Parameter]
+    public List<WordInstance> Words {get; set;}
+}

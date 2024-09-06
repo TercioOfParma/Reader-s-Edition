@@ -24,7 +24,12 @@
         <RadzenDropDown @bind-Value="Query.TextLanguage" Data="Languages" TextProperty="LanguageName" Name="TextLanguage"></RadzenDropDown>
         <RadzenLabel Component="GlossLanguage">Gloss Language</RadzenLabel>
         <RadzenDropDown @bind-Value="Query.GlossLanguage" Data="Languages" TextProperty="LanguageName" Name="GlossLanguage"></RadzenDropDown>
+        <RazdenButton Text="Test" Click="ProcessWords"></RazdenButton>;
     </div>
+}
+@if(Definitions != null)
+{
+    <SelectWords Words=@Definitions></SelectWords>
 }
 
 @code 
@@ -34,11 +39,15 @@
     public GetDefinitionsForTextQuery Query {get; set;} = new();
     public IBrowserFile File {get; set;}
     public List<Language> Languages {get; set;}
-    public List<Definition> Definitions {get; set;}
+    public List<WordInstance> Definitions {get; set;}
     protected override async Task OnInitializedAsync()
     {
         var result = await Mediator.Send(new GetLanguagesQuery());
         Languages = result.Languages.ToList();
+    }
+    protected async Task ProcessWords()
+    {
+
     }
     private async Task LoadFile(InputFileChangeEventArgs e)
     {
@@ -49,7 +58,7 @@
         var reader = new StreamReader(memoryStream);
         Query.Text = await reader.ReadToEndAsync();
         var result = await Mediator.Send(Query);
-        Definitions = result.Definitions;
+        Definitions = result.WordInstances;
     }
     
 }
