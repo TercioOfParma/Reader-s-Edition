@@ -24,12 +24,12 @@
         <RadzenDropDown @bind-Value="Query.TextLanguage" Data="Languages" TextProperty="LanguageName" Name="TextLanguage"></RadzenDropDown>
         <RadzenLabel Component="GlossLanguage">Gloss Language</RadzenLabel>
         <RadzenDropDown @bind-Value="Query.GlossLanguage" Data="Languages" TextProperty="LanguageName" Name="GlossLanguage"></RadzenDropDown>
-        <RazdenButton Text="Test" Click="ProcessWords"></RazdenButton>;
+        <RadzenButton Text="Test" Click="ProcessWords"></RadzenButton>
     </div>
 }
 @if(Definitions != null)
 {
-    <SelectWords Words=@Definitions></SelectWords>
+    <SelectDefinitions Words=@Definitions></SelectDefinitions>
 }
 
 @code 
@@ -47,18 +47,19 @@
     }
     protected async Task ProcessWords()
     {
-
+        var result = await Mediator.Send(Query);
+        Definitions = result.WordInstances;
     }
     private async Task LoadFile(InputFileChangeEventArgs e)
     {
-        File = e.File;
-        var memoryStream = new MemoryStream();
-        File.OpenReadStream().CopyTo(memoryStream);
-        memoryStream.Position = 0;
-        var reader = new StreamReader(memoryStream);
-        Query.Text = await reader.ReadToEndAsync();
-        var result = await Mediator.Send(Query);
-        Definitions = result.WordInstances;
+        foreach(var file in e.GetMultipleFiles(1))
+        {
+            var memoryStream = new MemoryStream();
+            await file.OpenReadStream().CopyToAsync(memoryStream);
+            memoryStream.Position = 0;
+            var reader = new StreamReader(memoryStream);
+            Query.Text = await reader.ReadToEndAsync();
+        }
     }
     
 }

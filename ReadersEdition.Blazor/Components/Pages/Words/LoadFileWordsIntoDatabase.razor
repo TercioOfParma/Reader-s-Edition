@@ -33,7 +33,7 @@
     {
         File = e.File;
         var memoryStream = new MemoryStream();
-        File.OpenReadStream().CopyTo(memoryStream);
+        await File.OpenReadStream().CopyToAsync(memoryStream);
         memoryStream.Position = 0;
         var reader = new StreamReader(memoryStream);
         Query.Text = await reader.ReadToEndAsync();

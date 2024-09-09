@@ -1,6 +1,7 @@
 using MediatR;
 using ReadersEdition.Domain.DictionaryModels;
 using ReadersEdition.Domain;
+using System.Text;
 
 public class GetDefinitionsForTextQuery : IRequest<GetDefinitionsForTextResult>
 {
@@ -20,8 +21,8 @@ public class GetDefinitionsForTextResult
     public class WordInstance{
         public string Word {get; set;}
         public string SurroundingSentence {get; set;}
-        public string DisplayDefinitions {get; set;}
-        public List<Definition> Definitions {get; set;}
+        public List<string> DisplayDefinitions {get; set;}
+        public List<string> AllDefinitions {get; set;}
     }
 
 public class GetDefinitionsForTextHandler(IUnitOfWork _db) : IRequestHandler<GetDefinitionsForTextQuery, GetDefinitionsForTextResult>
@@ -29,7 +30,7 @@ public class GetDefinitionsForTextHandler(IUnitOfWork _db) : IRequestHandler<Get
     public async Task<GetDefinitionsForTextResult> Handle(GetDefinitionsForTextQuery request, CancellationToken cancellationToken)
     {
         var result = new GetDefinitionsForTextResult();
-        var words = request.Text.Split(" ");
+        var words = StripVocabulary(request.Text);
         if(!request.ComprehensibleInput)
         {
             var frequencyWords = GetWordsForFrequency(words.ToList(), request.FrequencyInFileThreshold);
@@ -38,7 +39,8 @@ public class GetDefinitionsForTextHandler(IUnitOfWork _db) : IRequestHandler<Get
             foreach(var word in words)
             {
                 var instance = new WordInstance { Word = word};
-                instance.Definitions = definitions.Where(x => x.Word == word).ToList();
+                var unmodifiedDefs = definitions.Where(x => x.Word == word).Select(x => x.Gloss).ToList();
+                
                 result.WordInstances.Add(instance);
             }
         }
@@ -48,11 +50,24 @@ public class GetDefinitionsForTextHandler(IUnitOfWork _db) : IRequestHandler<Get
             foreach(var word in words)
             {
                 var instance = new WordInstance { Word = word};
-                instance.Definitions = frequencyWords.Where(x => x.Word == word).ToList();
+                var unmodifiedDefs = frequencyWords.Where(x => x.Word == word).Select(x => x.Gloss).ToList();
                 result.WordInstances.Add(instance);
             }
         }
         return result;
+    }
+    public string[] StripVocabulary(string file)
+    {
+        var charArray = file.ToArray();
+        var builder = new StringBuilder();
+        foreach(var character in charArray)
+        {
+            if(!char.IsPunctuation(character) || character != '\n')
+            {
+                builder.Append(character);
+            }
+        }
+        return builder.ToString().Split(" ");
     }
     public async Task<List<Definition>> GetWordsForComprehensibleInput(List<string> words, int threshold)
     {
@@ -70,6 +85,7 @@ public class GetDefinitionsForTextHandler(IUnitOfWork _db) : IRequestHandler<Get
             var count = toStrip.Where(x => x == word).Count();
             if(count <= threshold)
                 relevantWords[word] = count;
+            toStrip.RemoveAll(x => x == word);
 
         }
 

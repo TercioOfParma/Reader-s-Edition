@@ -4,7 +4,11 @@
     <RadzenDataGrid Data="Words">
         <RadzenDataGridColumn Property="Word">
         </RadzenDataGridColumn>
-        <RadzenDataGridColumn Property="SurroundingSentence"></RadzenDataGridColumn>
+        <RadzenDataGridColumn Title="Select Definitions"> 
+            <Template Context="Word">
+                <RadzenDropDown @bind-Value="Word.DisplayDefinitions" Data="Word.AllDefinitions" Multiple="true"></RadzenDropDown>
+            </Template>
+        </RadzenDataGridColumn>>
     </RadzenDataGrid>
 }
 @code {
