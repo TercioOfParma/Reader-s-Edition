@@ -62,7 +62,9 @@ public class GetDefinitionsForTextHandler(IUnitOfWork _db) : IRequestHandler<Get
         var builder = new StringBuilder();
         foreach(var character in charArray)
         {
-            if(!char.IsPunctuation(character) || character != '\n')
+            if(character == '\n')
+                builder.Append(' ');
+            else if(!char.IsPunctuation(character))
             {
                 builder.Append(character);
             }

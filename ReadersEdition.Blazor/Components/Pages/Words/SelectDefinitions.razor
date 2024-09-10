@@ -1,19 +1,27 @@
 
 @if(Words != null)
 {
-    <RadzenDataGrid Data="Words">
-        <RadzenDataGridColumn Property="Word">
-        </RadzenDataGridColumn>
-        <RadzenDataGridColumn Title="Select Definitions"> 
+    <RadzenDataGrid TItem="WordInstance" AllowFiltering="true" AllowColumnResize="true" AllowAlternatingRows="false" FilterMode="FilterMode.Advanced" AllowSorting="true" PageSize="25" AllowPaging="true" PagerHorizontalAlign="HorizontalAlign.Left" ShowPagingSummary="true"
+    Data=@Words ColumnWidth="300px" LogicalFilterOperator="LogicalFilterOperator.Or" SelectionMode="DataGridSelectionMode.Single">
+        <Columns>
+            <RadzenDataGridColumn Property="Word" Title="Word">
+            </RadzenDataGridColumn>
+            <RadzenDataGridColumn Title="Select Definitions"> 
             <Template Context="Word">
                 <RadzenDropDown @bind-Value="Word.DisplayDefinitions" Data="Word.AllDefinitions" Multiple="true"></RadzenDropDown>
             </Template>
         </RadzenDataGridColumn>>
+        </Columns>
     </RadzenDataGrid>
 }
 @code {
     [Inject]
     public IMediator Mediator {get; set;}
     [Parameter]
-    public List<WordInstance> Words {get; set;}
+    public IEnumerable<WordInstance> Words {get; set;}
+
+    protected override async Task OnInitializedAsync()
+    {
+
+    }
 }
