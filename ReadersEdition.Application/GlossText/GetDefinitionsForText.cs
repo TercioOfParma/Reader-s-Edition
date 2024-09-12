@@ -40,7 +40,7 @@ public class GetDefinitionsForTextHandler(IUnitOfWork _db) : IRequestHandler<Get
             foreach(var word in words)
             {
                 var instance = new WordInstance { Word = word};
-                var unmodifiedDefs = definitions.Where(x => x.Word == word).Select(x => x.Gloss).ToList();
+                var unmodifiedDefs = definitions.Where(x => x.Word == word || x.Word == word.ToLower()).Select(x => x.Gloss).ToList();
                 unmodifiedDefs.RemoveAll(x => x == string.Empty);
                 instance.AllDefinitions = unmodifiedDefs.Distinct().ToList();
                 

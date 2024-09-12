@@ -22,7 +22,9 @@ public class ApplicationDbContext : DbContext, IUnitOfWork
     }
     public async Task<IEnumerable<Definition>> GetDefinitions(List<string> words)
     {
-        return await Definitions.Where(x => words.Contains(x.Word)).ToListAsync();
+        var lowerCase = new List<string>();
+        words.ForEach(x => lowerCase.Add(x.ToLower()));
+        return await Definitions.Where(x => words.Contains(x.Word) || lowerCase.Contains(x.Word)).ToListAsync();
     }
     public async Task<IEnumerable<Definition>> GetDefinitions()
     {
