@@ -111,7 +111,7 @@ public class WiktionaryClient : HttpClient, IDictionaryRetriever
         {
             doc.LoadHtml(inflection.Gloss);
             var docContents = doc.DocumentNode.SelectSingleNode("//span");
-            var words = docContents.Descendants("span").Where(span => span.GetAttributeValue("class","") == "form-of-definition-link");
+            var words = docContents.Descendants("span").Where(span => span.GetAttributeValue("class","").Contains("form-of-definition-link"));
             foreach(var word in words)
             {
                 strippedStrings[word.InnerText] = inflection.Word;
