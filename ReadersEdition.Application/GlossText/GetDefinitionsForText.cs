@@ -30,7 +30,8 @@ public class GetDefinitionsForTextHandler(IUnitOfWork _db) : IRequestHandler<Get
     public async Task<GetDefinitionsForTextResult> Handle(GetDefinitionsForTextQuery request, CancellationToken cancellationToken)
     {
         var result = new GetDefinitionsForTextResult();
-        var words = StripVocabulary(request.Text);
+        var words = StripVocabulary(request.Text).ToList();
+        words.RemoveAll(x => x == string.Empty);
         if(!request.ComprehensibleInput)
         {
             var frequencyWords = GetWordsForFrequency(words.ToList(), request.FrequencyInFileThreshold);
@@ -40,6 +41,8 @@ public class GetDefinitionsForTextHandler(IUnitOfWork _db) : IRequestHandler<Get
             {
                 var instance = new WordInstance { Word = word};
                 var unmodifiedDefs = definitions.Where(x => x.Word == word).Select(x => x.Gloss).ToList();
+                unmodifiedDefs.RemoveAll(x => x == string.Empty);
+                instance.AllDefinitions = unmodifiedDefs.Distinct().ToList();
                 
                 result.WordInstances.Add(instance);
             }
@@ -51,6 +54,8 @@ public class GetDefinitionsForTextHandler(IUnitOfWork _db) : IRequestHandler<Get
             {
                 var instance = new WordInstance { Word = word};
                 var unmodifiedDefs = frequencyWords.Where(x => x.Word == word).Select(x => x.Gloss).ToList();
+                unmodifiedDefs.RemoveAll(x => x == string.Empty);
+                instance.AllDefinitions = unmodifiedDefs.Distinct().ToList();
                 result.WordInstances.Add(instance);
             }
         }
@@ -62,7 +67,7 @@ public class GetDefinitionsForTextHandler(IUnitOfWork _db) : IRequestHandler<Get
         var builder = new StringBuilder();
         foreach(var character in charArray)
         {
-            if(character == '\n')
+            if(character == '\n' || character == '\r' || character == '\t')
                 builder.Append(' ');
             else if(!char.IsPunctuation(character))
             {
@@ -80,7 +85,7 @@ public class GetDefinitionsForTextHandler(IUnitOfWork _db) : IRequestHandler<Get
     {
         var relevantWords = new Dictionary<string,int>();
         var toStrip = words.ToList();
-        var toSearchUp = words.Distinct().ToList();
+        var toSearchUp = toStrip.Distinct().ToList();
         while(toStrip.Count() != 0)
         {
             var word = toStrip.FirstOrDefault();

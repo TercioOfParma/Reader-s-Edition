@@ -8,7 +8,7 @@
             </RadzenDataGridColumn>
             <RadzenDataGridColumn Title="Select Definitions"> 
             <Template Context="Word">
-                <RadzenDropDown @bind-Value="Word.DisplayDefinitions" Data="Word.AllDefinitions" Multiple="true"></RadzenDropDown>
+                <RadzenDropDown TItem="List<string>" @bind-Value="Word.DisplayDefinitions" Data="Word.AllDefinitions" Multiple="true"></RadzenDropDown>
             </Template>
         </RadzenDataGridColumn>>
         </Columns>
