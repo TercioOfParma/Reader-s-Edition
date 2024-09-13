@@ -32,17 +32,20 @@ public class GetDefinitionsForTextHandler(IUnitOfWork _db) : IRequestHandler<Get
         var result = new GetDefinitionsForTextResult();
         var words = StripVocabulary(request.Text).ToList();
         words.RemoveAll(x => x == string.Empty);
+        var i = 0;
         if(!request.ComprehensibleInput)
         {
             var frequencyWords = GetWordsForFrequency(words.ToList(), request.FrequencyInFileThreshold);
             var definitions = await _db.GetDefinitions(frequencyWords);
-
+            
             foreach(var word in words)
             {
                 var instance = new WordInstance { Word = word};
                 var unmodifiedDefs = definitions.Where(x => x.Word == word || x.Word == word.ToLower()).Select(x => x.Gloss).ToList();
                 unmodifiedDefs.RemoveAll(x => x == string.Empty);
                 instance.AllDefinitions = unmodifiedDefs.Distinct().ToList();
+                instance.SurroundingSentence = GenerateSentenceContext(words, i);
+                i++;
                 
                 result.WordInstances.Add(instance);
             }
@@ -56,6 +59,8 @@ public class GetDefinitionsForTextHandler(IUnitOfWork _db) : IRequestHandler<Get
                 var unmodifiedDefs = frequencyWords.Where(x => x.Word == word || x.Word == word.ToLower()).Select(x => x.Gloss).ToList();
                 unmodifiedDefs.RemoveAll(x => x == string.Empty);
                 instance.AllDefinitions = unmodifiedDefs.Distinct().ToList();
+                instance.SurroundingSentence = GenerateSentenceContext(words, i);
+                i++;
                 result.WordInstances.Add(instance);
             }
         }
@@ -80,6 +85,27 @@ public class GetDefinitionsForTextHandler(IUnitOfWork _db) : IRequestHandler<Get
     {
         var relevantWords = await _db.GetComprehensibleInputDefinitions(words, threshold);
         return relevantWords.ToList();
+    }
+    public string GenerateSentenceContext(List<string> words, int position)
+    {
+        var i = 0;
+        var context = "";
+        if(position < 4)
+        {
+            for(i = 1; i < 8; i++)
+                context = context + words[i - 1] + " ";
+        }
+        else if(position >= words.Count() - 4)
+        {
+            for(i = words.Count(); i > words.Count() - 5; i--)
+                context = context +  words[i - 1] + " ";
+        }
+        else 
+        {
+            for(i = position - 2; i < position + 4; i++)
+                context = context + words[i - 1] + " ";
+        }
+        return context;
     }
     public List<string> GetWordsForFrequency(List<string> words, int threshold)
     {

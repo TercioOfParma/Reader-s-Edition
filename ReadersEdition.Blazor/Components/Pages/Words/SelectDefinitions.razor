@@ -6,6 +6,8 @@
         <Columns>
             <RadzenDataGridColumn Property="Word" Title="Word">
             </RadzenDataGridColumn>
+            <RadzenDataGridColumn Property="SurroundingSentence" Title="Context">
+            </RadzenDataGridColumn>
             <RadzenDataGridColumn Title="Select Definitions"> 
             <Template Context="Word">
                 <RadzenDropDown TItem="List<string>" @bind-Value="Word.DisplayDefinitions" Data="Word.AllDefinitions" Multiple="true"></RadzenDropDown>
