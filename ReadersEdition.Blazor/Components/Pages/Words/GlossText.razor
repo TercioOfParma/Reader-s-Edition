@@ -30,6 +30,7 @@
 @if(Definitions != null)
 {
     <SelectDefinitions Words=@Definitions></SelectDefinitions>
+    <RadzenButton Text="Gloss Text" Click="Conclude"></RadzenButton>
 }
 
 @code 
@@ -49,6 +50,10 @@
     {
         var result = await Mediator.Send(Query);
         Definitions = result.WordInstances;
+    }
+    protected async Task Conclude()
+    {
+        var result = await Mediator.Send(new GenerateLaTeXDocumentCommand(Query.Text, Definitions));
     }
     private async Task LoadFile(InputFileChangeEventArgs e)
     {
