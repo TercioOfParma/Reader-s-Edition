@@ -37,6 +37,8 @@
 {
     [Inject]
     public IMediator Mediator {get; set;}
+    [Inject]
+    public IJSRuntime JS {get; set;}
     public GetDefinitionsForTextQuery Query {get; set;} = new();
     public IBrowserFile File {get; set;}
     public List<Language> Languages {get; set;}
@@ -54,6 +56,26 @@
     protected async Task Conclude()
     {
         var result = await Mediator.Send(new GenerateLaTeXDocumentCommand(Query.Text, Definitions));
+        await DownloadFileFromStream(result.GlossedText);
+    }
+    private Stream GetFileStream(string result)
+    {
+        var fileStream = new MemoryStream();
+        var writer = new StreamWriter(fileStream);
+        writer.Write(result);
+        writer.Flush();
+        fileStream.Position = 0;
+        return fileStream;
+    }
+
+    private async Task DownloadFileFromStream(string result)
+    {
+        var fileStream = GetFileStream(result);
+        var fileName = "log.tex";
+
+        using var streamRef = new DotNetStreamReference(stream: fileStream);
+
+        await JS.InvokeVoidAsync("downloadFileFromStream", fileName, streamRef);
     }
     private async Task LoadFile(InputFileChangeEventArgs e)
     {

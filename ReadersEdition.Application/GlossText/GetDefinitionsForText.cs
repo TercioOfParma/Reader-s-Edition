@@ -19,10 +19,10 @@ public class GetDefinitionsForTextResult
 }
 
     public class WordInstance{
-        public string Word {get; set;}
-        public string SurroundingSentence {get; set;}
-        public List<string> DisplayDefinitions {get; set;}
-        public List<string> AllDefinitions {get; set;}
+        public string Word {get; set;} = string.Empty;
+        public string SurroundingSentence {get; set;} = string.Empty;
+        public List<string> DisplayDefinitions {get; set;} = new();
+        public List<string> AllDefinitions {get; set;} = new();
     }
 
 public class GetDefinitionsForTextHandler(IUnitOfWork _db) : IRequestHandler<GetDefinitionsForTextQuery, GetDefinitionsForTextResult>

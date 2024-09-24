@@ -16,6 +16,8 @@ public class GenerateLaTeXDocumentResult
 
 public class GenerateLaTeXDocumentHandler : IRequestHandler<GenerateLaTeXDocumentCommand, GenerateLaTeXDocumentResult>
 {
+    private string _preamble = "\\documentclass[11pt]{book}\\usepackage{atbegshi}\\usepackage[margin=1in]{geometry}\\usepackage{pdfcomment}\\usepackage{xcolor}\\usepackage{multicol}\\setcounter{secnumdepth}{-1}\\begin{document}\\sloppy\n";
+    private string _conclusion = "\\end{document}";
     public GenerateLaTeXDocumentHandler()
     {
     }
@@ -23,21 +25,26 @@ public class GenerateLaTeXDocumentHandler : IRequestHandler<GenerateLaTeXDocumen
     public async Task<GenerateLaTeXDocumentResult> Handle(GenerateLaTeXDocumentCommand request, CancellationToken cancellationToken)
     {
         var result = new GenerateLaTeXDocumentResult {};
-        var splitWords = request.Text.Split(" ");
-        var processedFile = "";
+        var strippedText = StripWord(request.Text);
+        var splitWords = string.Join(" ", strippedText).Split(" ");
+        var processedFile = _preamble;
         var definitions = request.GlossedWords.ToList();
         foreach(var word in splitWords)
         {
             var completeWord = String.Join("", StripWord(word));
             var def = definitions.FirstOrDefault();
+            if(def == null)
+                break;
             if(completeWord == def.Word)
             {
-                processedFile += processedFile + word + "\\footnote{" + String.Join(", ", def.DisplayDefinitions) + "} ";
+                processedFile += def.DisplayDefinitions.Count != 0 ? word + "\\footnote{" + String.Join(", ", def.DisplayDefinitions) + "} " : word + " ";
                 definitions.Remove(def);
             }
             else 
-                processedFile += processedFile + word + " ";
+                processedFile += word + " ";
         }
+        processedFile +=_conclusion;
+        result.GlossedText = processedFile;
         return result;
     }
 
