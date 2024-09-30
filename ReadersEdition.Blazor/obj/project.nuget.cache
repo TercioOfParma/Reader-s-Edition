@@ -1,13 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "p0w1js07Lio2KviP+cu3IPUw1hhbAz3Ns7NJoOrf3I+emunai+Ssbg+L5bTf2SAaFq64zFiNtP6rYT1Q3s6eww==",
-  "success": false,
+  "dgSpecHash": "o/mnOHx7bRmnnti1HaBxmttL02P9NLj9fGMr1UX8MTZboGUpvlIeA5kkPXFtudM+h0ASSndmkYPWRXSc99EAtg==",
+  "success": true,
   "projectFilePath": "/home/elliot/Documents/Reader-s-Edition/Reader-s-Edition/ReadersEdition.Blazor/ReadersEdition.Blazor.csproj",
   "expectedPackageFiles": [
     "/home/elliot/.nuget/packages/dartsassbuilder/1.0.0/dartsassbuilder.1.0.0.nupkg.sha512",
-    "/home/elliot/.nuget/packages/htmlagilitypack/1.11.61/htmlagilitypack.1.11.61.nupkg.sha512",
+    "/home/elliot/.nuget/packages/htmlagilitypack/1.11.67/htmlagilitypack.1.11.67.nupkg.sha512",
     "/home/elliot/.nuget/packages/humanizer.core/2.14.1/humanizer.core.2.14.1.nupkg.sha512",
-    "/home/elliot/.nuget/packages/mediatr/12.3.0/mediatr.12.3.0.nupkg.sha512",
+    "/home/elliot/.nuget/packages/mediatr/12.4.1/mediatr.12.4.1.nupkg.sha512",
     "/home/elliot/.nuget/packages/mediatr.contracts/2.0.1/mediatr.contracts.2.0.1.nupkg.sha512",
     "/home/elliot/.nuget/packages/mediatr.extensions.microsoft.dependencyinjection/11.1.0/mediatr.extensions.microsoft.dependencyinjection.11.1.0.nupkg.sha512",
     "/home/elliot/.nuget/packages/microsoft.aspnetcore.authorization/8.0.0/microsoft.aspnetcore.authorization.8.0.0.nupkg.sha512",
@@ -23,11 +23,12 @@
     "/home/elliot/.nuget/packages/microsoft.codeanalysis.csharp.workspaces/4.5.0/microsoft.codeanalysis.csharp.workspaces.4.5.0.nupkg.sha512",
     "/home/elliot/.nuget/packages/microsoft.codeanalysis.workspaces.common/4.5.0/microsoft.codeanalysis.workspaces.common.4.5.0.nupkg.sha512",
     "/home/elliot/.nuget/packages/microsoft.data.sqlite.core/8.0.8/microsoft.data.sqlite.core.8.0.8.nupkg.sha512",
-    "/home/elliot/.nuget/packages/microsoft.entityframeworkcore/8.0.7/microsoft.entityframeworkcore.8.0.7.nupkg.sha512",
-    "/home/elliot/.nuget/packages/microsoft.entityframeworkcore.abstractions/8.0.7/microsoft.entityframeworkcore.abstractions.8.0.7.nupkg.sha512",
-    "/home/elliot/.nuget/packages/microsoft.entityframeworkcore.analyzers/8.0.7/microsoft.entityframeworkcore.analyzers.8.0.7.nupkg.sha512",
-    "/home/elliot/.nuget/packages/microsoft.entityframeworkcore.design/8.0.7/microsoft.entityframeworkcore.design.8.0.7.nupkg.sha512",
+    "/home/elliot/.nuget/packages/microsoft.entityframeworkcore/8.0.8/microsoft.entityframeworkcore.8.0.8.nupkg.sha512",
+    "/home/elliot/.nuget/packages/microsoft.entityframeworkcore.abstractions/8.0.8/microsoft.entityframeworkcore.abstractions.8.0.8.nupkg.sha512",
+    "/home/elliot/.nuget/packages/microsoft.entityframeworkcore.analyzers/8.0.8/microsoft.entityframeworkcore.analyzers.8.0.8.nupkg.sha512",
+    "/home/elliot/.nuget/packages/microsoft.entityframeworkcore.design/8.0.8/microsoft.entityframeworkcore.design.8.0.8.nupkg.sha512",
     "/home/elliot/.nuget/packages/microsoft.entityframeworkcore.relational/8.0.8/microsoft.entityframeworkcore.relational.8.0.8.nupkg.sha512",
+    "/home/elliot/.nuget/packages/microsoft.entityframeworkcore.sqlite/8.0.8/microsoft.entityframeworkcore.sqlite.8.0.8.nupkg.sha512",
     "/home/elliot/.nuget/packages/microsoft.entityframeworkcore.sqlite.core/8.0.8/microsoft.entityframeworkcore.sqlite.core.8.0.8.nupkg.sha512",
     "/home/elliot/.nuget/packages/microsoft.extensions.caching.abstractions/8.0.0/microsoft.extensions.caching.abstractions.8.0.0.nupkg.sha512",
     "/home/elliot/.nuget/packages/microsoft.extensions.caching.memory/8.0.0/microsoft.extensions.caching.memory.8.0.0.nupkg.sha512",
@@ -43,7 +44,10 @@
     "/home/elliot/.nuget/packages/mono.texttemplating/2.2.1/mono.texttemplating.2.2.1.nupkg.sha512",
     "/home/elliot/.nuget/packages/newtonsoft.json/13.0.3/newtonsoft.json.13.0.3.nupkg.sha512",
     "/home/elliot/.nuget/packages/radzen.blazor/5.2.5/radzen.blazor.5.2.5.nupkg.sha512",
+    "/home/elliot/.nuget/packages/sqlitepclraw.bundle_e_sqlite3/2.1.6/sqlitepclraw.bundle_e_sqlite3.2.1.6.nupkg.sha512",
     "/home/elliot/.nuget/packages/sqlitepclraw.core/2.1.6/sqlitepclraw.core.2.1.6.nupkg.sha512",
+    "/home/elliot/.nuget/packages/sqlitepclraw.lib.e_sqlite3/2.1.6/sqlitepclraw.lib.e_sqlite3.2.1.6.nupkg.sha512",
+    "/home/elliot/.nuget/packages/sqlitepclraw.provider.e_sqlite3/2.1.6/sqlitepclraw.provider.e_sqlite3.2.1.6.nupkg.sha512",
     "/home/elliot/.nuget/packages/system.codedom/4.4.0/system.codedom.4.4.0.nupkg.sha512",
     "/home/elliot/.nuget/packages/system.collections.immutable/6.0.0/system.collections.immutable.6.0.0.nupkg.sha512",
     "/home/elliot/.nuget/packages/system.composition/6.0.0/system.composition.6.0.0.nupkg.sha512",
@@ -67,17 +71,8 @@
       "code": "NU1608",
       "level": "Warning",
       "warningLevel": 1,
-      "message": "Detected package version outside of dependency constraint: MediatR.Extensions.Microsoft.DependencyInjection 11.1.0 requires MediatR (>= 11.0.0 && < 12.0.0) but version MediatR 12.3.0 was resolved.",
+      "message": "Detected package version outside of dependency constraint: MediatR.Extensions.Microsoft.DependencyInjection 11.1.0 requires MediatR (>= 11.0.0 && < 12.0.0) but version MediatR 12.4.1 was resolved.",
       "libraryId": "MediatR",
-      "targetGraphs": [
-        "net8.0"
-      ]
-    },
-    {
-      "code": "NU1605",
-      "level": "Error",
-      "message": "Warning As Error: Detected package downgrade: Microsoft.EntityFrameworkCore from 8.0.8 to 8.0.7. Reference the package directly from the project to select a different version. \n ReadersEdition.Blazor -> ReadersEdition.Infrastructure -> Microsoft.EntityFrameworkCore.Sqlite.Core 8.0.8 -> Microsoft.EntityFrameworkCore.Relational 8.0.8 -> Microsoft.EntityFrameworkCore (>= 8.0.8) \n ReadersEdition.Blazor -> ReadersEdition.Infrastructure -> Microsoft.EntityFrameworkCore (>= 8.0.7)",
-      "libraryId": "Microsoft.EntityFrameworkCore",
       "targetGraphs": [
         "net8.0"
       ]

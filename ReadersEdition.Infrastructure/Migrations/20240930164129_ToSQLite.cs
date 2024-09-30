@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace ReadersEdition.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class ToSQLite : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -15,11 +15,11 @@ namespace ReadersEdition.Infrastructure.Migrations
                 name: "Definitions",
                 columns: table => new
                 {
-                    DefinitionId = table.Column<Guid>(type: "uuid", nullable: false),
-                    WordLanguageId = table.Column<Guid>(type: "uuid", nullable: false),
-                    GlossLanguageId = table.Column<Guid>(type: "uuid", nullable: false),
-                    Word = table.Column<string>(type: "text", nullable: false),
-                    Gloss = table.Column<string>(type: "text", nullable: false)
+                    DefinitionId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    WordLanguageId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    GlossLanguageId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    Word = table.Column<string>(type: "TEXT", nullable: false),
+                    Gloss = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -30,9 +30,9 @@ namespace ReadersEdition.Infrastructure.Migrations
                 name: "Languages",
                 columns: table => new
                 {
-                    LanguageId = table.Column<Guid>(type: "uuid", nullable: false),
-                    LanguageName = table.Column<string>(type: "text", nullable: false),
-                    LanguageCode = table.Column<string>(type: "text", nullable: false)
+                    LanguageId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    LanguageName = table.Column<string>(type: "TEXT", nullable: false),
+                    LanguageCode = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
