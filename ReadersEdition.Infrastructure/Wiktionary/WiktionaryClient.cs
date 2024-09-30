@@ -67,7 +67,7 @@ public class WiktionaryClient : HttpClient, IDictionaryRetriever
         foreach(var word in words)
         {
             var definitions = await LoadWiktionaryDefinitions(word, wordLanguage, glossLanguage);
-            var inflections = definitions.Where(x => x.Gloss.Contains("form-of-definition-link"));
+            var inflections = definitions.Where(x => x.Gloss.Contains("form-of-definition-link") || x.Gloss.Contains("form-of-definition use-with-mention"));
             definitions.ToList().RemoveAll(x => inflections.Any(y => y.Gloss == x.Gloss));
             if(inflections.Count() != 0)
             {

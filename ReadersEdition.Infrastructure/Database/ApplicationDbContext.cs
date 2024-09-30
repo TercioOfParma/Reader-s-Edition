@@ -39,17 +39,25 @@ public class ApplicationDbContext : DbContext, IUnitOfWork
     {
         return await Definitions.ToListAsync();
     }
-    public async Task<IDictionary<string,Definition>> GetDefinitions(Document document, Language documentLanguage, Language glossLanguage)
+    public async Task<IDictionary<string,List<Definition>>> GetDefinitions(Document document, Language documentLanguage, Language glossLanguage)
     {
         var result = await Definitions.Where(x => document.Glosses.Keys.Any(y => y == x.Word && 
         x.GlossLanguageId == glossLanguage.LanguageId &&
-        x.WordLanguageId == documentLanguage.LanguageId)).ToDictionaryAsync(x => x.Word, x => x);
+        x.WordLanguageId == documentLanguage.LanguageId)).ToListAsync();
+
         if(result == null)
-            return new Dictionary<string,Definition>();
+            return new Dictionary<string,List<Definition>>();
+        var dict =  new Dictionary<string,List<Definition>>(); 
+        foreach(var item in result)
+        {
+            if(!dict.ContainsKey(item.Word))
+                dict[item.Word] = new();
+            dict[item.Word].Add(item);
+        }        
         foreach(var def in Definitions)
             Console.WriteLine(def.Word);
         
-        return result;
+        return dict;
     }
 
     public async Task<IEnumerable<Language>> GetLanguages()

@@ -13,7 +13,7 @@ public class LoadDefinitionsQuery : IRequest<LoadDefinitionsResult>
 
 public class LoadDefinitionsResult 
 {
-    public IDictionary<string, Definition> Definitions {get; set;}
+    public IDictionary<string, List<Definition>> Definitions {get; set;}
 }
 
 public class LoadDefinitionsHandler : IRequestHandler<LoadDefinitionsQuery, LoadDefinitionsResult>
@@ -42,7 +42,11 @@ public class LoadDefinitionsHandler : IRequestHandler<LoadDefinitionsQuery, Load
         
         await _db.AddDefinitions(toSave,request.TextLanguage, request.GlossLanguage);
         foreach(var def in toSave)
-            dbDefinitions[def.Word] = def;
+        {
+            if(!dbDefinitions.ContainsKey(def.Word))
+                dbDefinitions[def.Word] = new();
+            dbDefinitions[def.Word].Add(def);
+        }
         return new LoadDefinitionsResult{ Definitions = dbDefinitions};
     }
 }
