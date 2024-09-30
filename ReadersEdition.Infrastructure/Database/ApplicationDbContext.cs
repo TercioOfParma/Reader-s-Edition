@@ -17,7 +17,7 @@ public class ApplicationDbContext : DbContext, IUnitOfWork
         var path = Environment.GetFolderPath(folder);
         DbPath = System.IO.Path.Join(path, "ReadersEdition.db");
     }
-    public async Task<IEnumerable<Definition>> GetComprehensibleInputDefinitions(List<string> words, int threshold)
+    public async Task<IEnumerable<Definition>> GetComprehensibleInputDefinitions(List<string> words, int threshold, Language textLanguage, Language glossLanguage)
     {
         return await Definitions.Where(x => words.Contains(x.Word)).ToListAsync();
     }
@@ -27,11 +27,13 @@ public class ApplicationDbContext : DbContext, IUnitOfWork
         await SaveChangesAsync();
         return Result.Success();
     }
-    public async Task<IEnumerable<Definition>> GetDefinitions(List<string> words)
+    public async Task<IEnumerable<Definition>> GetDefinitions(List<string> words, Language textLanguage, Language glossLanguage)
     {
         var lowerCase = new List<string>();
         words.ForEach(x => lowerCase.Add(x.ToLower()));
-        return await Definitions.Where(x => words.Contains(x.Word) || lowerCase.Contains(x.Word)).ToListAsync();
+        return await Definitions.Where(x => (words.Contains(x.Word) || lowerCase.Contains(x.Word)) &&
+        x.GlossLanguageId == glossLanguage.LanguageId && x.WordLanguageId == textLanguage.LanguageId
+        ).ToListAsync();
     }
     public async Task<IEnumerable<Definition>> GetDefinitions()
     {

@@ -36,7 +36,7 @@ public class GetDefinitionsForTextHandler(IUnitOfWork _db) : IRequestHandler<Get
         if(!request.ComprehensibleInput)
         {
             var frequencyWords = GetWordsForFrequency(words.ToList(), request.FrequencyInFileThreshold);
-            var definitions = await _db.GetDefinitions(frequencyWords);
+            var definitions = await _db.GetDefinitions(frequencyWords, request.TextLanguage, request.GlossLanguage);
             
             foreach(var word in words)
             {
@@ -52,7 +52,7 @@ public class GetDefinitionsForTextHandler(IUnitOfWork _db) : IRequestHandler<Get
         }
         else 
         {
-            var frequencyWords = await GetWordsForComprehensibleInput(words.ToList(), request.ComprehensibleInputThreshold);
+            var frequencyWords = await GetWordsForComprehensibleInput(words.ToList(), request.ComprehensibleInputThreshold, request.TextLanguage, request.GlossLanguage);
             foreach(var word in words)
             {
                 var instance = new WordInstance { Word = word};
@@ -81,9 +81,9 @@ public class GetDefinitionsForTextHandler(IUnitOfWork _db) : IRequestHandler<Get
         }
         return builder.ToString().Split(" ");
     }
-    public async Task<List<Definition>> GetWordsForComprehensibleInput(List<string> words, int threshold)
+    public async Task<List<Definition>> GetWordsForComprehensibleInput(List<string> words, int threshold, Language textLanguage, Language glossLanguage)
     {
-        var relevantWords = await _db.GetComprehensibleInputDefinitions(words, threshold);
+        var relevantWords = await _db.GetComprehensibleInputDefinitions(words, threshold,textLanguage,glossLanguage);
         return relevantWords.ToList();
     }
     public string GenerateSentenceContext(List<string> words, int position)

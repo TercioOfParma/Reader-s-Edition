@@ -25,9 +25,9 @@ public class WiktionaryClient : HttpClient, IDictionaryRetriever
         var textInfo = await GetAsync(_baseAddress + word);
         var message = await textInfo.Content.ReadAsStringAsync();
         var json = JObject.Parse(message);
-        if(json != null && json[glossLanguage.LanguageCode] != null)
+        if(json != null && json[wordLanguage.LanguageCode] != null)
         {
-            var currentLanguage = json[glossLanguage.LanguageCode].ToString();
+            var currentLanguage = json[wordLanguage.LanguageCode].ToString();
             
             var fullResponse = JsonConvert.DeserializeObject<IEnumerable<WiktionaryLanguageResponse>>(currentLanguage);
             foreach(var response in fullResponse)
