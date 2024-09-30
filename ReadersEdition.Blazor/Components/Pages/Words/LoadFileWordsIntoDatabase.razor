@@ -13,21 +13,30 @@
         <RadzenDropDown @bind-Value="Query.TextLanguage" Data="Languages" TextProperty="LanguageName" Name="TextLanguage"></RadzenDropDown>
         <RadzenLabel Component="GlossLanguage">Gloss Language</RadzenLabel>
         <RadzenDropDown @bind-Value="Query.GlossLanguage" Data="Languages" TextProperty="LanguageName" Name="GlossLanguage"></RadzenDropDown>
+        <RadzenButton Text="Submit" Click="LoadIntoDb" IsBusy=Loading></RadzenButton>
     </div>
 }
-
+a Aka          
 @code 
 {
     [Inject]
     public IMediator Mediator {get; set;}
     protected LoadDefinitionsQuery Query {get; set;} = new();
     protected IBrowserFile File {get; set;}
+    public bool Loading {get; set;}
     protected List<Language> Languages {get; set;}
 
     protected override async Task OnInitializedAsync()
     {
         var result = await Mediator.Send(new GetLanguagesQuery());
         Languages = result.Languages.ToList();
+    }
+    private async Task LoadIntoDb()
+    {
+        Loading = true;
+        var result = await Mediator.Send(Query);
+        Loading = false;
+
     }
     private async Task LoadFiles(InputFileChangeEventArgs e)
     {

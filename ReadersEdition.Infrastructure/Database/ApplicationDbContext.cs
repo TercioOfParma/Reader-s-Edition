@@ -7,9 +7,16 @@ public class ApplicationDbContext : DbContext, IUnitOfWork
 {
     private DbSet<Definition> Definitions {get; set;}
     private DbSet<Language> Languages {get; set;}
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-            => optionsBuilder.UseNpgsql("Host=localhost;Database=my_db;Username=my_user;Password=my_pw");
-    
+   private string DbPath {get; set;}
+    protected override void OnConfiguring(DbContextOptionsBuilder options)
+        => options.UseSqlite($"Data Source={DbPath}");
+    public ApplicationDbContext()
+    {
+        
+        var folder = Environment.SpecialFolder.LocalApplicationData;
+        var path = Environment.GetFolderPath(folder);
+        DbPath = System.IO.Path.Join(path, "ReadersEdition.db");
+    }
     public async Task<IEnumerable<Definition>> GetComprehensibleInputDefinitions(List<string> words, int threshold)
     {
         return await Definitions.Where(x => words.Contains(x.Word)).ToListAsync();
