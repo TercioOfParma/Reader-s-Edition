@@ -38,8 +38,6 @@ public class LoadDefinitionsHandler : IRequestHandler<LoadDefinitionsQuery, Load
         var toSave = new List<Definition>();
         foreach(var word in wiktionaryDefinitions)
             toSave.AddRange(word.Value.Distinct());
-        
-        
         await _db.AddDefinitions(toSave,request.TextLanguage, request.GlossLanguage);
         foreach(var def in toSave)
         {

@@ -58,20 +58,20 @@ public class WiktionaryClient : HttpClient, IDictionaryRetriever
     /// <param name="wordLanguage">The Language of the Word</param>
     /// <param name="glossLanguage">The Language of the Gloss</param>
     /// <returns></returns>
-    public async Task<IDictionary<string, List<Definition>>> GetDefinitions(IEnumerable<string> words, Language wordLanguage, Language glossLanguage, int i = 0)
+    public async Task<IDictionary<string, List<Definition>>> GetDefinitions(IEnumerable<string> words, Language wordLanguage, Language glossLanguage, int depth = 0)
     {
         var dict = new Dictionary<string, List<Definition>>();
-        int j = i + 1;
+        int j = depth + 1;
         if(j == 10) //I've realised that there are infinite loops of links
             return dict;
         foreach(var word in words)
         {
             var definitions = await LoadWiktionaryDefinitions(word, wordLanguage, glossLanguage);
-            var inflections = definitions.Where(x => x.Gloss.Contains("form-of-definition-link") || x.Gloss.Contains("form-of-definition use-with-mention"));
+            var inflections = definitions.Where(x => x.Gloss.Contains("form-of-definition-link") || x.Gloss.Contains("form-of-definition use-with-mention")).ToList();
             definitions.ToList().RemoveAll(x => inflections.Any(y => y.Gloss == x.Gloss));
             if(inflections.Count() != 0)
             {
-                Console.WriteLine($"In Inflections {word} depth {i}");
+                Console.WriteLine($"In Inflections {word} depth {depth}");
                 var rawInflections = await StripHTMLFromInflections(inflections);
                 var defined = await GetDefinitions(rawInflections.Keys, wordLanguage, glossLanguage, j);
                 foreach(var list in defined.Values)
@@ -83,11 +83,13 @@ public class WiktionaryClient : HttpClient, IDictionaryRetriever
             StripHTMLFromDefinitions(definitions);
             Console.WriteLine(dict.Count());
             if(inflections.Any())
+            {
+                if(!dict.ContainsKey(word))
+                    dict[word] = new();
                 dict[word].AddRange(definitions);
+            }
             else
                 dict[word] = definitions.ToList();
-                
-            
         }
 
         return dict;
