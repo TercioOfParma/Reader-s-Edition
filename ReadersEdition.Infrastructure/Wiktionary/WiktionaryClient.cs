@@ -1,4 +1,6 @@
+using System.Globalization;
 using System.Net.Http;
+using System.Text;
 using HtmlAgilityPack;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -51,6 +53,25 @@ public class WiktionaryClient : HttpClient, IDictionaryRetriever
         }
         return definitions;
     }
+    private static string RemoveDiacritics(string text) 
+    {
+        var normalizedString = text.Normalize(NormalizationForm.FormD);
+        var stringBuilder = new StringBuilder(capacity: normalizedString.Length);
+
+        for (int i = 0; i < normalizedString.Length; i++)
+        {
+            char c = normalizedString[i];
+            var unicodeCategory = CharUnicodeInfo.GetUnicodeCategory(c);
+            if (unicodeCategory != UnicodeCategory.NonSpacingMark)
+            {
+                stringBuilder.Append(c);
+            }
+        }
+
+        return stringBuilder
+            .ToString()
+            .Normalize(NormalizationForm.FormC);
+    }
     /// <summary>
     /// Loads up all necessary definitions from the Wiktionary API
     /// </summary>
@@ -66,30 +87,31 @@ public class WiktionaryClient : HttpClient, IDictionaryRetriever
             return dict;
         foreach(var word in words)
         {
-            var definitions = await LoadWiktionaryDefinitions(word, wordLanguage, glossLanguage);
+            var cleanWord = RemoveDiacritics(word);
+            var definitions = await LoadWiktionaryDefinitions(cleanWord, wordLanguage, glossLanguage);
             var inflections = definitions.Where(x => x.Gloss.Contains("form-of-definition-link") || x.Gloss.Contains("form-of-definition use-with-mention")).ToList();
             definitions.ToList().RemoveAll(x => inflections.Any(y => y.Gloss == x.Gloss));
             if(inflections.Count() != 0)
             {
-                Console.WriteLine($"In Inflections {word} depth {depth}");
+                Console.WriteLine(cleanWord);
                 var rawInflections = await StripHTMLFromInflections(inflections);
                 var defined = await GetDefinitions(rawInflections.Keys, wordLanguage, glossLanguage, j);
                 foreach(var list in defined.Values)
                 {
-                    if(dict.ContainsKey(word))
-                        dict[word].AddRange(list.ToList());
+                    list.ForEach(x => x.Word = word);
+                    if(dict.ContainsKey(cleanWord))
+                        dict[cleanWord].AddRange(list.ToList());
+                    else 
+                        dict[cleanWord] = list;
                 }
             }
             StripHTMLFromDefinitions(definitions);
-            Console.WriteLine(dict.Count());
-            if(inflections.Any())
-            {
-                if(!dict.ContainsKey(word))
-                    dict[word] = new();
-                dict[word].AddRange(definitions);
-            }
+            var toAdd = definitions.ToList();
+            toAdd.ForEach(x => x.Word = word);
+            if(dict.ContainsKey(cleanWord))
+                dict[cleanWord].AddRange(toAdd);
             else
-                dict[word] = definitions.ToList();
+                dict[cleanWord] = toAdd;
         }
 
         return dict;
